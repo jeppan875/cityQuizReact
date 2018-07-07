@@ -7,8 +7,8 @@ export default class Header extends React.Component {
     }
     return (
       <div id='login'>
-        <button type='submit' id='loginBtn' class='StandardButton' style={containerStyle}>Login</button>
-        <button type='submit' id='signoutBtn' class='StandardButton' style={containerStyle}>Sign out</button>
+        <button type='submit' id='loginBtn' className='StandardButton' style={containerStyle}>Login</button>
+        <button type='submit' id='signoutBtn' className='StandardButton' style={containerStyle}>Sign out</button>
       </div>
     )
   }
