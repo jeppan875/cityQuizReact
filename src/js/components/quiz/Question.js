@@ -1,8 +1,19 @@
 import React from 'react'
+import QuizStore from '../../stores/QuizStore'
 
 export default class Question extends React.Component {
+  constructor () {
+    super()
+    this.startGame = this.startGame.bind(this)
+    this.game = null
+  }
+  componentWillMount () {
+    QuizStore.on('start-game', this.startGame)
+  }
+  startGame () {
+    return game => { this.game = game }
+  }
   render () {
-    console.log(this.props.val)
     return (
       <div id='quizDiv' className='ripple'>
         <div id='viewDiv'>

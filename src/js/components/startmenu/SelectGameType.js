@@ -32,7 +32,7 @@ export default class SelectGameType extends React.Component {
           </div>
         </div>
         <div id='btn'>
-          <Link to='/quiz'><button type='submit' id='start' className='StandardButton'>Start</button></Link>
+          <Link to='/load-quiz'><button type='submit' id='start' className='StandardButton'>Start</button></Link>
         </div>
       </form>
     )
