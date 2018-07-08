@@ -1,7 +1,7 @@
 import React from 'react'
 import QuizStore from '../../stores/QuizStore'
 import Timer from '../../game/Timer'
-// import timer from '../../game/Timer'
+import { Redirect } from 'react-router'
 import * as QuizActions from '../../actions/QuizActions'
 
 export default class Question extends React.Component {
@@ -9,27 +9,31 @@ export default class Question extends React.Component {
     super()
     this.quizLoaded = this.quizLoaded.bind(this)
     this.startGame = this.startGame.bind(this)
-    this.timeUp = this.timeUp.bind(this)
+    this.sendAnswer = this.sendAnswer.bind(this)
     this.nextPic = this.nextPic.bind(this)
     this.game = null
     this.timer = new Timer()
     this.state = {
       startTime: null,
       timeLeft: null,
-      currentImg: null
+      currentImg: null,
+      alternatives: ['', '', '', ''],
+      endGame: false
     }
     this.interval = null
+    this.picCount = null
   }
   componentWillMount () {
     QuizStore.on('quiz-loaded', this.quizLoaded)
-    QuizStore.on('timeup', this.timeUp)
+    QuizStore.on('timeup', this.sendAnswer)
     QuizStore.on('nextpic', this.nextPic)
     QuizStore.on('start-game', this.startGame)
   }
-  startGame () {
-    this.startTimer()
-    console.log(this.game.questions[this.game.currentCount].urlArr[0])
-    this.setState({currentImg: this.game.questions[this.game.currentCount].urlArr[0]})
+  componentWillUnmount () {
+    QuizStore.removeListener('quiz-loaded', this.quizLoaded)
+    QuizStore.removeListener('timeup', this.sendAnswer)
+    QuizStore.removeListener('nextpic', this.nextPic)
+    QuizStore.removeListener('start-game', this.startGame)
   }
   quizLoaded () {
     this.game = QuizStore.getQuizGame()
@@ -38,22 +42,39 @@ export default class Question extends React.Component {
       QuizActions.startGame()
     }, 0)
   }
-  timeUp () {
-    this.game.currentCount++
-    this.stopTimer()
+  startGame () {
     this.startTimer()
+    this.picCount = 0
+    this.setState({
+      currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount],
+      alternatives: this.game.questions[this.game.currentCount].alternatives
+    })
+  }
+  endGame () {
+    this.stopTimer()
+    this.setState({endGame: true})
   }
   nextPic () {
-    if (this.game.questions[this.game.currentCount].urlArr[0] === 1) {
+    if (this.game.questions[this.game.currentCount].urlArr.length === 1) {
 
     } else {
-      
+      this.picCount++
+      this.setState({currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount]})
     }
   }
   sendAnswer () {
+    this.picCount = 0
     this.game.currentCount++
     this.stopTimer()
-    this.startTimer()
+    if (this.game.score >= this.game.maxPoints || this.game.currentCount >= this.game.size) {
+      this.endGame()
+    } else {
+      this.startTimer()
+      this.setState({
+        currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount],
+        alternatives: this.game.questions[this.game.currentCount].alternatives
+      })
+    }
   }
   startTimer () {
     let game = this.game
@@ -77,6 +98,9 @@ export default class Question extends React.Component {
   }
 
   render () {
+    if (this.state.endGame) {
+      return <Redirect to='/end-game' />
+    }
     return (
       <div id='quizDiv' className='ripple'>
         <p id='timer'>{this.state.timeLeft}</p>
@@ -89,19 +113,19 @@ export default class Question extends React.Component {
           <div id='question'>
             <div>
               <input type='radio' id='q1' className='option-input radio' name='answer' />
-              <label htmlFor='q1' id='l1'>''</label>
+              <label htmlFor='q1' id='l1'>{this.state.alternatives[0]}</label>
             </div>
             <div>
               <input type='radio' id='q2' className='option-input radio' name='answer' />
-              <label htmlFor='q2' id='l2'>''</label>
+              <label htmlFor='q2' id='l2'>{this.state.alternatives[1]}</label>
             </div>
             <div>
               <input type='radio' id='q3' className='option-input radio' name='answer' />
-              <label htmlFor='q3' id='l3'>''</label>
+              <label htmlFor='q3' id='l3'>{this.state.alternatives[2]}</label>
             </div>
             <div>
               <input type='radio' id='q4' className='option-input radio' name='answer' />
-              <label htmlFor='q4' id='l4'>''</label>
+              <label htmlFor='q4' id='l4'>{this.state.alternatives[3]}</label>
             </div>
           </div>
           <div id='btn'>

@@ -6,7 +6,7 @@ const cities = citiesLib.cities
 class QuizGame {
   constructor (size, maxPoints, multiplayer, questionsArr) {
     if (!multiplayer) {
-      this.size = size + 1
+      this.size = size + size * 0.4
       let citiesCount = size
       this.maxPoints = maxPoints
       let cities = this.getCities(citiesCount)
@@ -14,22 +14,13 @@ class QuizGame {
       let skylines = this.getSkyline(size * 0.4)
       this.skylines = skylines
       this.currentCount = 0
-      this.loadedView = 0
       this.questions = this.questions(citiesCount, cities, skylines)
       this.score = 0
       this.answers = []
     } else {
       this.size = size
       this.currentCount = 0
-      this.loadedView = 0
       this.questions = this.multiplayerJoiner(questionsArr, size)
-    }
-  }
-  
-  loadView (size) {
-    this.loadedView++
-    if (this.loadedView === 3 * size + size * 0.4) {
-      document.querySelector('main').dispatchEvent(new window.CustomEvent('start-game'))
     }
   }
   multiplayerJoiner (questionsArr, size) {

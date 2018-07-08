@@ -66,7 +66,7 @@ class Skyline {
       img.src = url
       img.id = 'view'
       arr[0] = img
-      urlArr = url
+      urlArr[0] = url
       paths[0] = arrSkyline[0]
       QuizActions.imgLoaded()
     }).catch(function (error) {
