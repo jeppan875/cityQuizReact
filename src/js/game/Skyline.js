@@ -13,7 +13,6 @@ class Skyline {
       let imgArr = []
       let paths = []
       let urlArr = []
-      console.log(rightAnswer)
       this.getViews(rightAnswer, imgArr, paths, urlArr)
       this.views = imgArr
       this.paths = paths
@@ -29,7 +28,9 @@ class Skyline {
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
     }
   }
-
+  getQuestionDesc () {
+    return 'Where is this skyline?'
+  }
   alternatives (rightAnswer) {
     let arr = []
     arr = Object.keys(skylineLib.skylineLib)
@@ -41,20 +42,6 @@ class Skyline {
     this.shuffleCities(alt)
     let alternativeArr = alt.map(s => helpers.replaceAll(s, '_', ' '))
     return alternativeArr
-  }
-
-  answer () {
-    if (document.querySelector('input[name="answer"]:checked') === null) {
-      return false
-    }
-    let answer = document.querySelector('input[name="answer"]:checked').value
-    if (answer === this.rightAnswer) {
-      console.log('correct')
-      return true
-    } else {
-      console.log('incorrect')
-      return false
-    }
   }
 
   getViews (city, arr, paths, urlArr) {

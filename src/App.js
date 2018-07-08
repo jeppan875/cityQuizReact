@@ -10,11 +10,13 @@ import LoadQuiz from './js/components/quiz/LoadingQuiz'
 class App extends Component {
   render () {
     return (
-      <div>
-        <Route path='/' exact component={StartMenu} />
-        <Route path='/quiz' exact component={Quiz} />
-        <Route path='/load-quiz' exact component={LoadQuiz} />
-        <Route path='/end-game' exact component={EndGame} />
+      <div id='wrapper'>
+        <main>
+          <Route path='/' exact component={StartMenu} />
+          <Route path='/quiz' exact component={Quiz} />
+          <Route path='/load-quiz' exact component={LoadQuiz} />
+          <Route path='/end-game' exact component={EndGame} />
+        </main>
       </div>
     )
   }

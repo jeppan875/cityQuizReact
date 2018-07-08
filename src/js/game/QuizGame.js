@@ -26,7 +26,6 @@ class QuizGame {
   multiplayerJoiner (questionsArr, size) {
     let arr = []
     for (let i = 0; i < size; i++) {
-      console.log('out')
       if (questionsArr[i].type === 'question') {
         console.log('que')
         arr.push(new MultiPic(questionsArr[i].rightAnswer, true, questionsArr[i].alternatives, questionsArr[i].paths))
@@ -45,7 +44,6 @@ class QuizGame {
       arr.push(new MultiPic(cities[i]))
     }
     for (let i = 0; i < size * 0.4; i++) {
-      console.log(skylines[i])
       arr.push(new Skyline(skylines[i]))
     }
     this.shuffleCities(arr)
@@ -66,7 +64,6 @@ class QuizGame {
   getSkyline (nr) {
     let skylines = Object.keys(skylineLib.skylineLib)
     this.shuffleCities(skylines)
-    console.log(skylines)
     return skylines.slice(0, nr)
   }
 

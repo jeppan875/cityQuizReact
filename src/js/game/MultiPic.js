@@ -20,6 +20,7 @@ class MultiPic {
       this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
       this.type = 'question'
+      this.picCount = 3
     } else {
       this.rightAnswer = rightAnswer
       this.alternatives = alternativesArr
@@ -27,9 +28,12 @@ class MultiPic {
       this.getViewsJoiner(imgArr, pathsArr)
       this.views = imgArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
+      this.picCount = 3
     }
   }
-
+  getQuestionDesc () {
+    return `Which is the city? pic ${this.picCount}/3`
+  }
   alternatives (rightAnswer) {
     let arr = []
     if (rightAnswer in cities.europe) arr = Object.keys(cities.europe)

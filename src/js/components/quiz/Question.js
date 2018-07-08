@@ -1,6 +1,5 @@
 import React from 'react'
 import QuizStore from '../../stores/QuizStore'
-import Timer from '../../game/Timer'
 import { Redirect } from 'react-router'
 import * as QuizActions from '../../actions/QuizActions'
 
@@ -12,13 +11,14 @@ export default class Question extends React.Component {
     this.sendAnswer = this.sendAnswer.bind(this)
     this.nextPic = this.nextPic.bind(this)
     this.game = null
-    this.timer = new Timer()
     this.state = {
       startTime: null,
       timeLeft: null,
       currentImg: null,
       alternatives: ['', '', '', ''],
-      endGame: false
+      endGame: false,
+      score: 0,
+      question: ''
     }
     this.interval = null
     this.picCount = null
@@ -47,7 +47,8 @@ export default class Question extends React.Component {
     this.picCount = 0
     this.setState({
       currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount],
-      alternatives: this.game.questions[this.game.currentCount].alternatives
+      alternatives: this.game.questions[this.game.currentCount].alternatives,
+      question: this.game.questions[this.game.currentCount].getQuestionDesc()
     })
   }
   endGame () {
@@ -59,20 +60,27 @@ export default class Question extends React.Component {
 
     } else {
       this.picCount++
-      this.setState({currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount]})
+      this.game.questions[this.game.currentCount].picCount--
+      this.setState({
+        currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount],
+        question: this.game.questions[this.game.currentCount].getQuestionDesc()
+      })
     }
   }
   sendAnswer () {
+    this.answer()
     this.picCount = 0
     this.game.currentCount++
     this.stopTimer()
-    if (this.game.score >= this.game.maxPoints || this.game.currentCount >= this.game.size) {
+    console.log(this.state.score)
+    if (this.state.score >= this.game.maxPoints || this.game.currentCount >= this.game.size) {
       this.endGame()
     } else {
       this.startTimer()
       this.setState({
         currentImg: this.game.questions[this.game.currentCount].urlArr[this.picCount],
-        alternatives: this.game.questions[this.game.currentCount].alternatives
+        alternatives: this.game.questions[this.game.currentCount].alternatives,
+        question: this.game.questions[this.game.currentCount].getQuestionDesc()
       })
     }
   }
@@ -97,6 +105,18 @@ export default class Question extends React.Component {
     window.clearInterval(this.interval)
   }
 
+  answer () {
+    let answer = document.querySelector('input[name="answer"]:checked')
+    if (answer === null) {
+      this.game.answers.push('', 'Wrong')
+    } else if (answer.value === this.game.questions[this.game.currentCount].rightAnswer) {
+      this.setState({score: this.state.score + this.state.timeLeft})
+      this.game.answers.push(answer.value, 'Correct')
+    } else {
+      this.game.answers.push(answer.value, 'Wrong')
+    }
+  }
+
   render () {
     if (this.state.endGame) {
       return <Redirect to='/end-game' />
@@ -108,23 +128,23 @@ export default class Question extends React.Component {
           <img id='view' alt='' src={this.state.currentImg} />
         </div>
         <progress max={this.state.startTime} value={this.state.timeLeft} />
-        <p id='pquestion' />
+        <p id='pquestion'>{this.state.question}</p>
         <div id='quiz'>
           <div id='question'>
             <div>
-              <input type='radio' id='q1' className='option-input radio' name='answer' />
+              <input type='radio' id='q1' className='option-input radio' name='answer' value={this.state.alternatives[0]} />
               <label htmlFor='q1' id='l1'>{this.state.alternatives[0]}</label>
             </div>
             <div>
-              <input type='radio' id='q2' className='option-input radio' name='answer' />
+              <input type='radio' id='q2' className='option-input radio' name='answer' value={this.state.alternatives[1]} />
               <label htmlFor='q2' id='l2'>{this.state.alternatives[1]}</label>
             </div>
             <div>
-              <input type='radio' id='q3' className='option-input radio' name='answer' />
+              <input type='radio' id='q3' className='option-input radio' name='answer' value={this.state.alternatives[2]} />
               <label htmlFor='q3' id='l3'>{this.state.alternatives[2]}</label>
             </div>
             <div>
-              <input type='radio' id='q4' className='option-input radio' name='answer' />
+              <input type='radio' id='q4' className='option-input radio' name='answer' value={this.state.alternatives[3]} />
               <label htmlFor='q4' id='l4'>{this.state.alternatives[3]}</label>
             </div>
           </div>
@@ -132,7 +152,7 @@ export default class Question extends React.Component {
             <button type='submit' id='send' className='StandardButton' onClick={this.sendAnswer.bind(this)}>send</button>
           </div>
           <div id='scoreBoard'>
-            <p id='spScore' />
+            <p id='spScore'>{this.state.score}</p>
             <table />
           </div>
         </div>
