@@ -25,6 +25,18 @@ class QuizStore extends EventEmitter {
         this.imgLoad()
         break
       }
+      case 'TIMEUP': {
+        this.emit('timeup')
+        break
+      }
+      case 'NEXTPIC': {
+        this.emit('nextpic')
+        break
+      }
+      case 'START_GAME': {
+        this.emit('start-game')
+        break
+      }
     }
   }
 }

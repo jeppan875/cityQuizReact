@@ -13,9 +13,11 @@ class MultiPic {
       this.alternatives = this.alternatives(rightAnswer)
       let imgArr = []
       let paths = []
-      this.getViews(rightAnswer, imgArr, paths)
+      let urlArr = []
+      this.getViews(rightAnswer, imgArr, paths, urlArr)
       this.views = imgArr
       this.paths = paths
+      this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
       this.type = 'question'
     } else {
@@ -59,7 +61,7 @@ class MultiPic {
     }
   }
 
-  getViews (city, arr, paths) {
+  getViews (city, arr, paths, urlArr) {
     let area
     let area1
     city = helpers.replaceAll(city, '_', ' ')
@@ -90,7 +92,6 @@ class MultiPic {
       firstPicArr.push({folder: 2, pic: i})
     }
     this.shuffleCities(firstPicArr)
-    console.log(firstPicArr)
     let path = `${area}/${city}/${firstPicArr[0].folder}/${firstPicArr[0].pic}.jpg`
     storage.ref().child(path).getDownloadURL().then(function (url) {
       let img = document.createElement('IMG')
@@ -98,12 +99,12 @@ class MultiPic {
       img.id = 'view'
       arr[0] = img
       paths[0] = path
+      urlArr[0] = url
       QuizActions.imgLoaded()
     }).catch(function (error) {
       console.log(error)
     })
     for (let i = 2; i < 4; i++) {
-      console.log(area1)
       let path = `${area}/${city}/${i + 1}/${this.rand(cities[area1][city1][i])}.jpg`
       storage.ref().child(path).getDownloadURL().then(function (url) {
         let img = document.createElement('IMG')
@@ -111,6 +112,7 @@ class MultiPic {
         img.id = 'view'
         arr[i - 1] = img
         paths[i - 1] = path
+        urlArr[i - 1] = url
         QuizActions.imgLoaded()
       }).catch(function (error) {
         console.log(error)

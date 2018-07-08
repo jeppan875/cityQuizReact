@@ -1,21 +1,19 @@
+import * as QuizActions from '../actions/QuizActions'
 
 class Timer {
   constructor () {
     this._interval = ''
+    this.timeLeft = null
   }
-  startTimer (timerElement, progressElement, time) {
-    progressElement.max = parseInt(time)
+  startTimer (time) {
+    this.timeLeft = parseInt(time)
     this._interval = setInterval(() => {
-      time--
-      if (time < 1) {
-        let timeup = new window.CustomEvent('timeup')
-        timerElement.dispatchEvent(timeup)
-      } else if (time % 10 === 0) {
-        let nextpic = new window.CustomEvent('nextpic')
-        document.querySelector('#view').dispatchEvent(nextpic)
+      this.timeLeft--
+      if (this.timeLeft < 1) {
+        QuizActions.timeup()
+      } else if (this.timeLeft % 10 === 0) {
+        QuizActions.nextPic()
       }
-      timerElement.innerText = parseInt(time)
-      progressElement.value = parseInt(time)
     }, 1000)
   }
 

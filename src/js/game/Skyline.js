@@ -1,7 +1,6 @@
 import fire from '../../fire'
 import * as QuizActions from '../actions/QuizActions'
 const helpers = require('./lib/helpers')
-// const firebase = require('firebase')
 const storage = fire.storage()
 const skylineLib = require('./lib/skylineLib')
 
@@ -13,10 +12,12 @@ class Skyline {
       this.alternatives = this.alternatives(rightAnswer)
       let imgArr = []
       let paths = []
+      let urlArr = []
       console.log(rightAnswer)
-      this.getViews(rightAnswer, imgArr, paths)
+      this.getViews(rightAnswer, imgArr, paths, urlArr)
       this.views = imgArr
       this.paths = paths
+      this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
       this.type = 'skyline'
     } else {
@@ -56,7 +57,7 @@ class Skyline {
     }
   }
 
-  getViews (city, arr, paths) {
+  getViews (city, arr, paths, urlArr) {
     console.log(city)
     let arrSkyline = skylineLib.skylineLib[city]
     this.shuffleCities(arrSkyline)
@@ -65,6 +66,7 @@ class Skyline {
       img.src = url
       img.id = 'view'
       arr[0] = img
+      urlArr = url
       paths[0] = arrSkyline[0]
       QuizActions.imgLoaded()
     }).catch(function (error) {
