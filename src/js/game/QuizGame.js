@@ -2,7 +2,6 @@ import Skyline from './Skyline'
 import MultiPic from './MultiPic'
 const citiesLib = require('./lib/cities')
 const skylineLib = require('./lib/skylineLib')
-/* const helpers = require('./lib/helpers') */
 const cities = citiesLib.cities
 class QuizGame {
   constructor (size, maxPoints, multiplayer, questionsArr) {
@@ -29,9 +28,7 @@ class QuizGame {
   
   loadView (size) {
     this.loadedView++
-    console.log(this.loadedView)
     if (this.loadedView === 3 * size + size * 0.4) {
-      console.log('loaded 5')
       document.querySelector('main').dispatchEvent(new window.CustomEvent('start-game'))
     }
   }

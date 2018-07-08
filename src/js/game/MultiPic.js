@@ -3,7 +3,6 @@ import * as QuizActions from '../actions/QuizActions'
 const citiesLib = require('./lib/cities')
 const helpers = require('./lib/helpers')
 const cities = citiesLib.cities
-// const firebase = require('firebase')
 const storage = fire.storage()
 
 class MultiPic {

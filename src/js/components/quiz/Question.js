@@ -1,18 +1,22 @@
 import React from 'react'
 import QuizStore from '../../stores/QuizStore'
+// import timer from '../../game/Timer'
+import * as QuizActions from '../../actions/QuizActions'
 
 export default class Question extends React.Component {
   constructor () {
     super()
-    this.startGame = this.startGame.bind(this)
+    this.startGame = this.quizLoaded.bind(this)
     this.game = null
   }
   componentWillMount () {
-    QuizStore.on('start-game', this.startGame)
+    QuizStore.on('quiz-loaded', this.quizLoaded)
   }
-  startGame () {
-    return game => { this.game = game }
+  quizLoaded () {
+    this.game = QuizStore.getQuizGame()
+    console.log(this.game)
   }
+
   render () {
     return (
       <div id='quizDiv' className='ripple'>

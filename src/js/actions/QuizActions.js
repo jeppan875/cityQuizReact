@@ -1,15 +1,13 @@
 import dispatcher from '../dispatcher'
 
-export function startQuiz (quizGame) {
+export function loadedQuiz (quizGame) {
   dispatcher.dispatch({
-    type: 'START_QUIZ',
+    type: 'QUIZ_LOADED',
     game: quizGame
   })
-  console.log('dispatched')
 }
 export function imgLoaded () {
   dispatcher.dispatch({
     type: 'IMG_LOADED'
   })
-  console.log('dispatched')
 }

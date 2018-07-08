@@ -2,9 +2,12 @@ import { EventEmitter } from 'events'
 import dispatcher from '../dispatcher'
 
 class QuizStore extends EventEmitter {
-  startGame (game) {
-    this.emit('start-game', game)
-    console.log('game started')
+  constructor () {
+    super()
+    this.game = null
+  }
+  getQuizGame () {
+    return this.game
   }
 
   imgLoad () {
@@ -13,9 +16,9 @@ class QuizStore extends EventEmitter {
 
   handleActions (action) {
     switch (action.type) {
-      case 'START_QUIZ': {
-        console.log(action.game)
-        this.startGame(action.game)
+      case 'QUIZ_LOADED': {
+        this.game = action.game
+        this.emit('quiz-loaded')
         break
       }
       case 'IMG_LOADED': {
