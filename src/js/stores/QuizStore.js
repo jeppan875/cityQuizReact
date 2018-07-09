@@ -5,11 +5,18 @@ class QuizStore extends EventEmitter {
   constructor () {
     super()
     this.game = null
+    this.answers = null
+    this.score = 0
   }
   getQuizGame () {
     return this.game
   }
-
+  getAnswers () {
+    return this.answers
+  }
+  getScore () {
+    return this.score
+  }
   imgLoad () {
     this.emit('img-loaded')
   }
@@ -35,6 +42,12 @@ class QuizStore extends EventEmitter {
       }
       case 'START_GAME': {
         this.emit('start-game')
+        break
+      }
+      case 'ENDGAME': {
+        this.answers = action.answers
+        this.score = action.score
+        this.emit('end-game')
         break
       }
     }

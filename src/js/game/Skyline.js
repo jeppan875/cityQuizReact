@@ -75,19 +75,6 @@ class Skyline {
     })
   }
 
-  setQuiz (alt, imgArr) {
-    let imgDiv = document.querySelector('#viewDiv')
-    imgDiv.replaceChild(imgArr[0], imgDiv.querySelectorAll('IMG')[0])
-    document.querySelector('#pquestion').innerText = 'Where is this skyline?'
-    let input = document.querySelectorAll('input')
-    let lable = document.querySelectorAll('label')
-    for (let i = 0; i < 4; i++) {
-      input[i].setAttribute('value', alt[i])
-      lable[i].innerText = alt[i]
-      input[i].checked = false
-    }
-  }
-
   shuffleCities (array) {
     if (!Array.isArray(array)) {
       throw new TypeError('The passed argument is not an array.')

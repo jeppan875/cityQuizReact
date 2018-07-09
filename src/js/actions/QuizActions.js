@@ -28,3 +28,10 @@ export function nextPic () {
     type: 'NEXTPIC'
   })
 }
+export function endGame (answers, score) {
+  dispatcher.dispatch({
+    type: 'ENDGAME',
+    answers: answers,
+    score: score
+  })
+}

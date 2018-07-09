@@ -143,31 +143,6 @@ class MultiPic {
     return Math.floor((Math.random() * max) + 1)
   }
 
-  setQuiz (alt, imgArr) {
-    let imgDiv = document.querySelector('#viewDiv')
-    imgDiv.replaceChild(imgArr[0], imgDiv.querySelectorAll('IMG')[0])
-    let img = document.querySelector('#view')
-    document.querySelector('#pquestion').innerText = 'Which is the city? pic 3/3'
-    let picCount = 3
-    let count = 0
-    let nextpic = e => {
-      count++
-      picCount--
-      document.querySelector('#pquestion').innerText = `Which is the city? pic ${picCount}/3`
-      imgDiv.replaceChild(imgArr[count], imgDiv.querySelectorAll('IMG')[0])
-      imgDiv.querySelectorAll('IMG')[0].addEventListener('nextpic', nextpic)
-    }
-    img.addEventListener('nextpic', nextpic)
-
-    let input = document.querySelectorAll('input')
-    let lable = document.querySelectorAll('label')
-    for (let i = 0; i < 4; i++) {
-      input[i].setAttribute('value', alt[i])
-      lable[i].innerText = alt[i]
-      input[i].checked = false
-    }
-  }
-
   shuffleCities (array) {
     if (!Array.isArray(array)) {
       throw new TypeError('The passed argument is not an array.')

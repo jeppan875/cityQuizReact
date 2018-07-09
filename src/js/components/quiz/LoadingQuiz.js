@@ -17,7 +17,7 @@ export default class LoadQuiz extends React.Component {
     }
     this.imgLoadCount = 0
     this.maxImg = this.getMaxImgs(this.state.gameType)
-    this.quizGame = new QuizGame(parseInt(this.state.gameType.value.split(' ')[0]), this.state.gameType.value.split(' ')[1] || 1000)
+    this.quizGame = new QuizGame(parseInt(this.state.gameType.value.split(' ')[0], 10), this.state.gameType.value.split(' ')[1] || 1000)
   }
   componentWillMount () {
     QuizStore.on('img-loaded', this.imgLoaded)
@@ -36,7 +36,7 @@ export default class LoadQuiz extends React.Component {
     }
   }
   getMaxImgs (val) {
-    let size = parseInt(val.value.split(' ')[0])
+    let size = parseInt(val.value.split(' ')[0], 10)
     return 3 * size + size * 0.4
   }
   render () {

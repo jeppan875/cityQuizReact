@@ -37,7 +37,6 @@ export default class Question extends React.Component {
   }
   quizLoaded () {
     this.game = QuizStore.getQuizGame()
-    console.log(this.game)
     setTimeout(() => {
       QuizActions.startGame()
     }, 0)
@@ -53,6 +52,9 @@ export default class Question extends React.Component {
   }
   endGame () {
     this.stopTimer()
+    setTimeout(() => {
+      QuizActions.endGame(this.game.answers, this.state.score)
+    }, 0)
     this.setState({endGame: true})
   }
   nextPic () {
@@ -69,11 +71,14 @@ export default class Question extends React.Component {
   }
   sendAnswer () {
     this.answer()
+    let input = document.querySelectorAll('input')
+    for (let i = 0; i < 4; i++) {
+      input[i].checked = false
+    }
     this.picCount = 0
     this.game.currentCount++
     this.stopTimer()
-    console.log(this.state.score)
-    if (this.state.score >= this.game.maxPoints || this.game.currentCount >= this.game.size) {
+    if (this.state.score + this.state.timeLeft >= this.game.maxPoints || this.game.currentCount >= this.game.size) {
       this.endGame()
     } else {
       this.startTimer()
@@ -108,12 +113,12 @@ export default class Question extends React.Component {
   answer () {
     let answer = document.querySelector('input[name="answer"]:checked')
     if (answer === null) {
-      this.game.answers.push('', 'Wrong')
+      this.game.answers.push({answer: '', correct: 'Wrong'})
     } else if (answer.value === this.game.questions[this.game.currentCount].rightAnswer) {
       this.setState({score: this.state.score + this.state.timeLeft})
-      this.game.answers.push(answer.value, 'Correct')
+      this.game.answers.push({answer: answer.value, correct: 'Correct'})
     } else {
-      this.game.answers.push(answer.value, 'Wrong')
+      this.game.answers.push({answer: answer.value, correct: 'Wrong'})
     }
   }
 
