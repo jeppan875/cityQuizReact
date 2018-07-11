@@ -2,10 +2,12 @@ import React from 'react'
 import { Redirect } from 'react-router'
 import QuizStore from '../../stores/QuizStore'
 import QuizGame from '../../game/QuizGame'
-import ReturnToMain from './ReturnToMain'
+import ReturnToMain from '../quiz/ReturnToMain'
 import * as QuizActions from '../../actions/QuizActions'
+import * as firebase from 'firebase'
+const database = firebase.database()
 
-export default class LoadQuiz extends React.Component {
+export default class LoadingMultiplayerGame extends React.Component {
   constructor () {
     super()
     if (document.querySelector('input[name="location"]:checked') === null) return
@@ -13,11 +15,12 @@ export default class LoadQuiz extends React.Component {
     this.state = {
       gameType: document.querySelector('input[name="location"]:checked'),
       imgLoadCount: 0,
-      startGame: false
+      startGame: false,
+      maxPlayers: parseInt(document.querySelector('input[name="nrPlayers"]:checked').value, 10)
     }
     this.imgLoadCount = 0
     this.maxImg = this.getMaxImgs(this.state.gameType)
-    this.quizGame = new QuizGame(parseInt(this.state.gameType.value.split(' ')[0], 10), this.state.gameType.value.split(' ')[1] || 1000, 1)
+    this.quizGame = new QuizGame(parseInt(this.state.gameType.value.split(' ')[0], 10), this.state.gameType.value.split(' ')[1] || 1000, this.state.maxPlayers)
   }
   componentWillMount () {
     QuizStore.on('img-loaded', this.imgLoaded)
@@ -31,9 +34,30 @@ export default class LoadQuiz extends React.Component {
     if (this.state.imgLoadCount === this.maxImg) {
       this.setState({startGame: true})
       setTimeout(() => {
+        this.sendToDataBase(this.quizGame)
         QuizActions.loadedQuiz(this.quizGame)
       }, 0)
     }
+  }
+  sendToDataBase (qg) {
+    let user = firebase.auth().currentUser
+    let gameRef = database.ref('games').push()
+    gameRef.set({
+      players: null,
+      game: qg,
+      playerCount: 1,
+      maxPlayers: qg.playerCount,
+      readyCount: 0,
+      nextCount: 0
+    })
+    let players = database.ref(`games/${gameRef.key}/players`)
+    let updates = {}
+    updates[`/${user.uid}`] = {
+      displayName: user.email,
+      uid: user.uid,
+      score: 0
+    }
+    players.update(updates)
   }
   getMaxImgs (val) {
     let size = parseInt(val.value.split(' ')[0], 10)
@@ -41,7 +65,7 @@ export default class LoadQuiz extends React.Component {
   }
   render () {
     if (this.state.startGame) {
-      return <Redirect to='/quiz' />
+      return <Redirect to='/joinroom' />
     }
     if (document.querySelector('input[name="location"]:checked')) {
       return (

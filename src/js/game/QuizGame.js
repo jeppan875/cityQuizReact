@@ -4,7 +4,7 @@ const citiesLib = require('./lib/cities')
 const skylineLib = require('./lib/skylineLib')
 const cities = citiesLib.cities
 class QuizGame {
-  constructor (size, maxPoints, multiplayer, questionsArr) {
+  constructor (size, maxPoints, playerCount, multiplayer, questionsArr) {
     if (!multiplayer) {
       this.size = size + size * 0.4
       let citiesCount = size
@@ -17,7 +17,9 @@ class QuizGame {
       this.questions = this.questions(citiesCount, cities, skylines)
       this.score = 0
       this.answers = []
+      this.playerCount = playerCount
     } else {
+      this.playerCount = playerCount
       this.size = size
       this.currentCount = 0
       this.questions = this.multiplayerJoiner(questionsArr, size)

@@ -11,6 +11,7 @@ export function loadedQuiz (quizGame) {
     game: quizGame
   })
 }
+
 export function imgLoaded () {
   dispatcher.dispatch({
     type: 'IMG_LOADED'

@@ -27,7 +27,6 @@ export default class ScoreBoard extends React.Component {
     this.setState({score: QuizStore.getScore()})
   }
   render () {
-    console.log(this.state.answers)
     return (
       <div>
         <p className='no-margin'>Your score: {this.state.score}</p>
