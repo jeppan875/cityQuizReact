@@ -27,11 +27,9 @@ class QuizGame {
     let arr = []
     for (let i = 0; i < size; i++) {
       if (questionsArr[i].type === 'question') {
-        console.log('que')
         arr.push(new MultiPic(questionsArr[i].rightAnswer, true, questionsArr[i].alternatives, questionsArr[i].paths))
       }
       if (questionsArr[i].type === 'skyline') {
-        console.log('sky')
         arr.push(new Skyline(questionsArr[i].rightAnswer, true, questionsArr[i].alternatives, questionsArr[i].paths))
       }
     }

@@ -14,7 +14,7 @@ class Skyline {
       let paths = []
       let urlArr = []
       this.getViews(rightAnswer, imgArr, paths, urlArr)
-      this.views = imgArr
+      this.imgArr = imgArr
       this.paths = paths
       this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')

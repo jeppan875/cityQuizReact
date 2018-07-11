@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-dom'
 
 export default class PlayAgain extends React.Component {
   render () {

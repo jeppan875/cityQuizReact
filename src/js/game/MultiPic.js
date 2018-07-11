@@ -15,7 +15,7 @@ class MultiPic {
       let paths = []
       let urlArr = []
       this.getViews(rightAnswer, imgArr, paths, urlArr)
-      this.views = imgArr
+      this.imgArr = imgArr
       this.paths = paths
       this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
@@ -130,9 +130,6 @@ class MultiPic {
         let img = document.createElement('IMG')
         img.src = url
         img.id = 'view'
-        img.height = '300'
-        img.width = '300'
-        console.log(img)
         imgArr[i] = img
         document.querySelector('main').dispatchEvent(new window.CustomEvent('view-loaded'))
       })
