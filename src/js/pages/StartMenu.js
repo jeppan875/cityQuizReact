@@ -1,8 +1,8 @@
 import React from 'react'
 import fire from '../../fire'
-import SelectGameType from '../components/startmenu/SelectGameType'
-import Header from '../components/startmenu/Header'
-import MultiplayerButton from '../components/startmenu/MultiplayerButton'
+import SelectGameType from '../components/singlePlayer/startmenu/SelectGameType'
+import Header from '../components/singlePlayer/startmenu/Header'
+import MultiplayerButton from '../components/singlePlayer/startmenu/MultiplayerButton'
 
 export default class StartMenu extends React.Component {
   constructor () {

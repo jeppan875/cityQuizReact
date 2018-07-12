@@ -1,9 +1,9 @@
 import React from 'react'
 import { Redirect } from 'react-router'
-import QuizStore from '../../stores/QuizStore'
-import QuizGame from '../../game/QuizGame'
-import ReturnToMain from '../quiz/ReturnToMain'
-import * as QuizActions from '../../actions/QuizActions'
+import QuizStore from '../../../stores/QuizStore'
+import QuizGame from '../../../game/QuizGame'
+import ReturnToMain from '../../singlePlayer/quiz/ReturnToMain'
+import * as QuizActions from '../../../actions/QuizActions'
 import * as firebase from 'firebase'
 const database = firebase.database()
 
@@ -18,6 +18,7 @@ export default class LoadingMultiplayerGame extends React.Component {
       startGame: false,
       maxPlayers: parseInt(document.querySelector('input[name="nrPlayers"]:checked').value, 10)
     }
+    this.gameId = null
     this.imgLoadCount = 0
     this.maxImg = this.getMaxImgs(this.state.gameType)
     this.quizGame = new QuizGame(parseInt(this.state.gameType.value.split(' ')[0], 10), this.state.gameType.value.split(' ')[1] || 1000, this.state.maxPlayers)
@@ -33,15 +34,17 @@ export default class LoadingMultiplayerGame extends React.Component {
     document.querySelector('progress').value = this.state.imgLoadCount
     if (this.state.imgLoadCount === this.maxImg) {
       this.setState({startGame: true})
+      this.sendToDataBase(this.quizGame)
       setTimeout(() => {
-        this.sendToDataBase(this.quizGame)
-        QuizActions.loadedQuiz(this.quizGame)
+        QuizActions.loadedMultiplayerQuiz(this.quizGame, this.gameId)
       }, 0)
     }
   }
   sendToDataBase (qg) {
     let user = firebase.auth().currentUser
     let gameRef = database.ref('games').push()
+    this.gameId = gameRef.key
+    console.log(this.gameId)
     gameRef.set({
       players: null,
       game: qg,

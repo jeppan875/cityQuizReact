@@ -44,7 +44,7 @@ label {font-size: 18px}
     -webkit-transform: translate(0px,5px);
       border-bottom: 1px solid;
 }
-.pressedButton 
+.pressedButton
 {
   background-color: #d0e6ce;
 	border-bottom: 5px solid #d0e6ce;

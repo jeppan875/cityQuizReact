@@ -7,9 +7,10 @@ import Quiz from './js/pages/Quiz'
 import Login from './js/pages/Login'
 import MultiplayerMain from './js/pages/MultiplayerMain'
 import { Route } from 'react-router'
-import LoadQuiz from './js/components/quiz/LoadingQuiz'
-import CreateGameForm from './js/components/MultiplayerCreateGame/CreateGameForm'
-import LoadingMultiplayerGame from './js/components/MultiplayerCreateGame/LoadingMultiplayerGame'
+import LoadQuiz from './js/components/singlePlayer/quiz/LoadingQuiz'
+import CreateGameForm from './js/components/Multiplayer/MultiplayerCreateGame/CreateGameForm'
+import LoadingMultiplayerGame from './js/components/Multiplayer/MultiplayerCreateGame/LoadingMultiplayerGame'
+import JoinGameRoom from './js/pages/JoinGameRoom'
 
 class App extends Component {
   render () {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path='/multiplayer-main' exact component={MultiplayerMain} />
           <Route path='/create-multiplayer-game' exact component={CreateGameForm} />
           <Route path='/loading-multiplayer-game' exact component={LoadingMultiplayerGame} />
+          <Route path='/joinroom' exact component={JoinGameRoom} />
         </main>
       </div>
     )

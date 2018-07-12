@@ -1,6 +1,6 @@
 import React from 'react'
 import ScoreRow from './ScoreRow'
-import QuizStore from '../../stores/QuizStore'
+import QuizStore from '../../../stores/QuizStore'
 
 export default class ScoreBoard extends React.Component {
   constructor () {

@@ -11,6 +11,13 @@ export function loadedQuiz (quizGame) {
     game: quizGame
   })
 }
+export function loadedMultiplayerQuiz (quizGame, gameId) {
+  dispatcher.dispatch({
+    type: 'MULTIPLAYER_QUIZ_LOADED',
+    game: quizGame,
+    gameId: gameId
+  })
+}
 
 export function imgLoaded () {
   dispatcher.dispatch({
