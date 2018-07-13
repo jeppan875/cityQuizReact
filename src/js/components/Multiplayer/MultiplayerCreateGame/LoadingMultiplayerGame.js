@@ -44,7 +44,6 @@ export default class LoadingMultiplayerGame extends React.Component {
     let user = firebase.auth().currentUser
     let gameRef = database.ref('games').push()
     this.gameId = gameRef.key
-    console.log(this.gameId)
     gameRef.set({
       players: null,
       game: qg,

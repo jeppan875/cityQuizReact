@@ -15,21 +15,21 @@ export default class PlayerList extends React.Component {
   componentWillMount () {
     QuizStore.on('multiplayer-quiz-loaded', this.getGameId)
   }
+  componentWillUnmount () {
+    QuizStore.removeListener('multiplayer-quiz-loaded', this.getGameId)
+  }
   getGameId () {
     this.gameId = QuizStore.getGameId()
     this.setPlayerList()
   }
   setPlayerList () {
-    console.log(this.gameId)
     let playersRef = database.ref(`games/${this.gameId}/players`)
     playersRef.on('value', function (snapshot) {
       let players = Object.keys(snapshot.val())
-      console.log(players)
       let playersNames = []
       for (let i = 0; i < players.length; i++) {
         playersNames.push(snapshot.child(`${players[i]}`).val().displayName)
       }
-      console.log(playersNames)
       this.setState({players: playersNames})
     }.bind(this))
   }

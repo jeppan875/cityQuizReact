@@ -22,7 +22,6 @@ export default class LoadingMultiplayerGame extends React.Component {
     this.downloadQuiz()
   }
   componentWillMount () {
-    console.log('willmount')
     QuizStore.on('img-loaded', this.imgLoaded)
   }
   componentWillUnmount () {
@@ -40,10 +39,10 @@ export default class LoadingMultiplayerGame extends React.Component {
         if (error) {
           console.log(error)
         } else if (committed) {
-          let maxPlayers = parseInt(gameSnapshot.child('maxPlayers').val())
-          let maxPoints = parseInt(gameSnapshot.child('game/maxPoints').val())
-          this.maxImg = parseInt(gameSnapshot.child('game/size').val())
-          if (parseInt(snapshot.val()) <= maxPlayers) {
+          let maxPlayers = parseInt(gameSnapshot.child('maxPlayers').val(), 10)
+          let maxPoints = parseInt(gameSnapshot.child('game/maxPoints').val(), 10)
+          this.maxImg = parseInt(gameSnapshot.child('game/size').val(), 10)
+          if (parseInt(snapshot.val(), 10) <= maxPlayers) {
             let updates = {}
             updates[`/${user.uid}`] = {
               displayName: user.email,

@@ -19,6 +19,7 @@ class QuizGame {
       this.answers = []
       this.playerCount = playerCount
     } else {
+      this.maxPoints = maxPoints
       this.playerCount = playerCount
       this.size = size
       this.currentCount = 0

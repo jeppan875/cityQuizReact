@@ -73,6 +73,9 @@ class QuizStore extends EventEmitter {
         this.emit('end-game')
         break
       }
+      default: {
+        console.log('no emit')
+      }
     }
   }
 }

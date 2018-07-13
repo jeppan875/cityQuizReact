@@ -27,6 +27,7 @@ export default class MultiplayerQuiz extends React.Component {
       question: '',
       scores: []
     }
+    this.gameEnded = false
     this.scores = []
     this.interval = null
     this.picCount = null
@@ -40,43 +41,68 @@ export default class MultiplayerQuiz extends React.Component {
   }
   componentWillUnmount () {
     QuizStore.removeListener('nextpic', this.nextPic)
+    QuizStore.removeListener('next-question', this.setNextQuestion)
+    let playersRef = database.ref(`games/${this.gameId}/players`)
+    let nextCountRef = database.ref(`games/${this.gameId}/nextCount`)
+    let playerCount = database.ref(`games/${this.gameId}/playerCount`)
+    let maxPlayersRef = database.ref(`games/${this.gameId}/maxPlayers`)
+    playersRef.off('value')
+    nextCountRef.off('value')
+    playerCount.off('value')
+    maxPlayersRef.off('value')
   }
   watchGame () {
     let gameRef = database.ref(`games/${this.gameId}`)
     let playersRef = database.ref(`games/${this.gameId}/players`)
     let nextCountRef = database.ref(`games/${this.gameId}/nextCount`)
     let playerCount = database.ref(`games/${this.gameId}/playerCount`)
+    let maxPlayersRef = database.ref(`games/${this.gameId}/maxPlayers`)
 
-    gameRef.child('state').on('value', function (snapshot) {
+    maxPlayersRef.on('value', function (snapshot) {
+      let update = parseInt(snapshot.val(), 10) - 1
+      gameRef.onDisconnect().update({maxPlayers: update})
     })
+    gameRef.child('state').on('value', function (snapshot) {
+      let state = snapshot.val()
+      console.log(state)
+      if (state === 'finished') {
+        this.gameEnded = true
+        this.endGame()
+      }
+    }.bind(this))
     nextCountRef.on('value', function (snapshot) {
       if (this.state.disabled) {
         // if disconnects and have pressed sent answer button
-        let update = parseInt(snapshot.val()) - 1
+        let update = parseInt(snapshot.val(), 10) - 1
         gameRef.onDisconnect().update({nextCount: update})
       }
-      let nextCount = parseInt(snapshot.val())
+      if (this.gameEnded === true) return
+      let nextCount = parseInt(snapshot.val(), 10)
       gameRef.once('value').then(function (gameSnapshot) {
         let maxPlayers = gameSnapshot.child('maxPlayers').val()
         this.playerCount = maxPlayers
-        if (nextCount % parseInt(maxPlayers) === 0 && nextCount !== 0) {
+        if (nextCount % parseInt(maxPlayers, 10) === 0 && nextCount !== 0) {
           QuizActions.multiplayerNextQuestion()
         }
       }.bind(this))
     }.bind(this))
 
     playerCount.on('value', function (snapshot) {
-      let update = parseInt(snapshot.val()) - 1
+      let update = parseInt(snapshot.val(), 10) - 1
       gameRef.onDisconnect().update({playerCount: update})
     })
     playersRef.on('value', function (snapshot) {
       playersRef.child(firebase.auth().currentUser.uid).onDisconnect().remove()
+      if (this.gameEnded === true) return
       let players = Object.keys(snapshot.val())
       let pArr = []
       for (let i = 0; i < players.length; i++) {
         let player = snapshot.child(`${players[i]}`).val().displayName
-        let score = parseInt(snapshot.child(`${players[i]}`).val().score)
+        let score = parseInt(snapshot.child(`${players[i]}`).val().score, 10)
         pArr[i] = {player: player, score: score}
+        if (score >= this.game.maxPoints) {
+          gameRef.update({state: 'finished'})
+        }
       }
       pArr = pArr.sort((a, b) => {
         return a.score - b.score
@@ -116,6 +142,7 @@ export default class MultiplayerQuiz extends React.Component {
     }
   }
   answerSent () {
+    if (this.gameEnded === true) return
     this.setState({
       classNames: 'StandardButton pressedButton',
       disabled: true
@@ -126,11 +153,12 @@ export default class MultiplayerQuiz extends React.Component {
     gameRef.once('value', function (gameSnapshot) {
       let playerRef = database.ref(`games/${this.gameId}/players/${this.user.uid}`)
       if (this.isAnswerCorrect(this.game.questions[this.game.currentCount].rightAnswer, answer)) {
-        let newScore = parseInt(gameSnapshot.child(`players/${this.user.uid}/score`).val()) + this.state.timeLeft
+        let newScore = parseInt(gameSnapshot.child(`players/${this.user.uid}/score`).val(), 10) + this.state.timeLeft
         console.log(newScore)
         playerRef.update({score: newScore})
       }
       // reset checked buttons
+      if (this.gameEnded === true) return
       let input = document.querySelectorAll('input')
       for (let i = 0; i < 4; i++) {
         input[i].checked = false
@@ -157,7 +185,7 @@ export default class MultiplayerQuiz extends React.Component {
     this.picCount = 0
     this.game.currentCount++
     this.stopTimer()
-    if (this.state.score + this.state.timeLeft >= this.game.maxPoints || this.game.currentCount >= this.game.size) {
+    if (this.game.currentCount >= this.game.size) {
       this.endGame()
     } else {
       this.startTimer()

@@ -20,6 +20,11 @@ export default class JoinRoom extends React.Component {
   componentWillMount () {
     QuizStore.on('multiplayer-quiz-loaded', this.quizLoaded)
   }
+  componentWillUnmount () {
+    QuizStore.removeListener('multiplayer-quiz-loaded', this.quizLoaded)
+    let readyCountRef = database.ref(`games/${this.state.gameId}/readyCount`)
+    readyCountRef.off('value')
+  }
   quizLoaded () {
     this.setState({gameId: QuizStore.getGameId()})
     this.onReady()
@@ -28,7 +33,7 @@ export default class JoinRoom extends React.Component {
     let readyCountRef = database.ref(`games/${this.state.gameId}/readyCount`)
     let gameRef = database.ref(`games/${this.state.gameId}`)
     readyCountRef.on('value', function (snapshot) {
-      let update = parseInt(snapshot.val()) - 1
+      let update = parseInt(snapshot.val(), 10) - 1
       if (update <= 0) {
         update = 0
       }
@@ -36,7 +41,7 @@ export default class JoinRoom extends React.Component {
     // if (gameFinished) { return }
       gameRef.once('value').then(function (gameSnapshot) {
         let maxPlayers = gameSnapshot.child('maxPlayers').val()
-        if (parseInt(snapshot.val()) === parseInt(maxPlayers)) {
+        if (parseInt(snapshot.val(), 10) === parseInt(maxPlayers, 10)) {
           this.setState({startGame: true})
         }
       }.bind(this))
