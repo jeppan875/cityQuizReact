@@ -1,6 +1,6 @@
 import React from 'react'
-import CreateGameButton from '../components/Multiplayer/MultiplayerMain/CreateGameButton'
-import JoinGame from '../components/Multiplayer/MultiplayerMain/JoinGame'
+import CreateGameButton from '../components/Multiplayer/multiplayerMain/CreateGameButton'
+import JoinGame from '../components/Multiplayer/multiplayerMain/JoinGame'
 
 export default class MultiplayerMain extends React.Component {
   render () {

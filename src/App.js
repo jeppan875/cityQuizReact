@@ -8,9 +8,10 @@ import Login from './js/pages/Login'
 import MultiplayerMain from './js/pages/MultiplayerMain'
 import { Route } from 'react-router'
 import LoadQuiz from './js/components/singlePlayer/quiz/LoadingQuiz'
-import CreateGameForm from './js/components/Multiplayer/MultiplayerCreateGame/CreateGameForm'
-import LoadingMultiplayerGame from './js/components/Multiplayer/MultiplayerCreateGame/LoadingMultiplayerGame'
-import JoinGameRoom from './js/pages/JoinGameRoom'
+import LoadingMultiplayerGame from './js/components/Multiplayer/multiplayerCreateGame/LoadingMultiplayerGame'
+import LoadingMultiplayerJoiner from './js/components/Multiplayer/multiplayerJoinRoom/LoadingMultiplayerJoiner'
+import MultiplayerJoinRoom from './js/pages/MultiplayerJoinRoom'
+import MultiplayerCreateGame from './js/pages/MultiplayerCreateGame'
 
 class App extends Component {
   render () {
@@ -23,9 +24,10 @@ class App extends Component {
           <Route path='/end-game' exact component={EndGame} />
           <Route path='/login' exact component={Login} />
           <Route path='/multiplayer-main' exact component={MultiplayerMain} />
-          <Route path='/create-multiplayer-game' exact component={CreateGameForm} />
+          <Route path='/create-multiplayer-game' exact component={MultiplayerCreateGame} />
           <Route path='/loading-multiplayer-game' exact component={LoadingMultiplayerGame} />
-          <Route path='/joinroom' exact component={JoinGameRoom} />
+          <Route path='/loading-multiplayer-joiner' exact component={LoadingMultiplayerJoiner} />
+          <Route path='/joinroom' exact component={MultiplayerJoinRoom} />
         </main>
       </div>
     )

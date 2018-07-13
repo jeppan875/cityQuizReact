@@ -25,8 +25,11 @@ class MultiPic {
       this.rightAnswer = rightAnswer
       this.alternatives = alternativesArr
       let imgArr = []
-      this.getViewsJoiner(imgArr, pathsArr)
+      let urlArr = []
+      this.getViewsJoiner(imgArr, pathsArr, urlArr)
+      console.log(urlArr)
       this.views = imgArr
+      this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
       this.picCount = 3
     }
@@ -46,7 +49,6 @@ class MultiPic {
     alt.push(arr.splice(Math.floor((Math.random() * arr.length) + 0), 1)[0])
     alt.push(arr.splice(Math.floor((Math.random() * arr.length) + 0), 1)[0])
     this.shuffleCities(alt)
-    console.log(alt)
     let alternativeArr = alt.map(s => helpers.replaceAll(s, '_', ' '))
     return alternativeArr
   }
@@ -124,14 +126,15 @@ class MultiPic {
     }
   }
 
-  getViewsJoiner (imgArr, pathsArr) {
+  getViewsJoiner (imgArr, pathsArr, urlArr) {
     for (let i = 0; i < 3; i++) {
       storage.ref().child(pathsArr[i]).getDownloadURL().then(function (url) {
         let img = document.createElement('IMG')
         img.src = url
+        urlArr[i] = url
         img.id = 'view'
         imgArr[i] = img
-        document.querySelector('main').dispatchEvent(new window.CustomEvent('view-loaded'))
+        QuizActions.imgLoaded()
       })
     }
   }

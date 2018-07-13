@@ -23,8 +23,11 @@ class Skyline {
       this.rightAnswer = rightAnswer
       this.alternatives = alternativesArr
       let imgArr = []
-      this.getViewsJoiner(imgArr, pathsArr)
+      let urlArr = []
+      this.getViewsJoiner(imgArr, pathsArr, urlArr)
+      console.log(urlArr)
       this.views = imgArr
+      this.urlArr = urlArr
       this.rightAnswer = helpers.replaceAll(rightAnswer, '_', ' ')
     }
   }
@@ -61,7 +64,7 @@ class Skyline {
     })
   }
 
-  getViewsJoiner (imgArr, pathsArr) {
+  getViewsJoiner (imgArr, pathsArr, urlArr) {
     console.log(pathsArr[0])
     storage.ref().child(pathsArr[0]).getDownloadURL().then(function (url) {
       let img = document.createElement('IMG')
@@ -69,6 +72,7 @@ class Skyline {
       img.id = 'view'
       console.log(img)
       imgArr[0] = img
+      urlArr[0] = url
       QuizActions.imgLoaded()
     }).catch(function (error) {
       console.log(error)
