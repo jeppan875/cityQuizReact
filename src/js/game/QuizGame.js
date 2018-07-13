@@ -22,6 +22,7 @@ class QuizGame {
       this.playerCount = playerCount
       this.size = size
       this.currentCount = 0
+      this.answers = []
       this.questions = this.multiplayerJoiner(questionsArr, size)
     }
   }

@@ -19,6 +19,19 @@ export function loadedMultiplayerQuiz (quizGame, gameId) {
   })
 }
 
+export function multiplayerScores (scores) {
+  dispatcher.dispatch({
+    type: 'MULTIPLAYER_SCORES',
+    scores: scores
+  })
+}
+
+export function multiplayerNextQuestion (quizGame, gameId) {
+  dispatcher.dispatch({
+    type: 'MULTIPLAYER_NEXT_QUESTION'
+  })
+}
+
 export function imgLoaded () {
   dispatcher.dispatch({
     type: 'IMG_LOADED'

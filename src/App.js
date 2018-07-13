@@ -12,6 +12,8 @@ import LoadingMultiplayerGame from './js/components/Multiplayer/multiplayerCreat
 import LoadingMultiplayerJoiner from './js/components/Multiplayer/multiplayerJoinRoom/LoadingMultiplayerJoiner'
 import MultiplayerJoinRoom from './js/pages/MultiplayerJoinRoom'
 import MultiplayerCreateGame from './js/pages/MultiplayerCreateGame'
+import MultiplayerQuizGame from './js/pages/MultiplayerQuizGame'
+import MultiplayerEndGame from './js/pages/MultiplayerEndGame'
 
 class App extends Component {
   render () {
@@ -28,6 +30,8 @@ class App extends Component {
           <Route path='/loading-multiplayer-game' exact component={LoadingMultiplayerGame} />
           <Route path='/loading-multiplayer-joiner' exact component={LoadingMultiplayerJoiner} />
           <Route path='/joinroom' exact component={MultiplayerJoinRoom} />
+          <Route path='/multiplayer-quiz' exact component={MultiplayerQuizGame} />
+          <Route path='/multiplayer-endgame' exact component={MultiplayerEndGame} />
         </main>
       </div>
     )

@@ -32,9 +32,7 @@ export default class LoadingMultiplayerGame extends React.Component {
     let user = firebase.auth().currentUser
     let playerCount = database.ref(`games/${this.state.gameId}/playerCount`)
     let players = database.ref(`games/${this.state.gameId}/players`)
-    console.log(this.quizGame)
     database.ref(`games/${this.state.gameId}/`).once('value').then(function (gameSnapshot) {
-      console.log(this.quizGame)
       let game = gameSnapshot.child('game/questions').val()
       playerCount.transaction(function (currentData) {
         return (currentData || 0) + 1
@@ -42,7 +40,6 @@ export default class LoadingMultiplayerGame extends React.Component {
         if (error) {
           console.log(error)
         } else if (committed) {
-          console.log(parseInt(snapshot.val()))
           let maxPlayers = parseInt(gameSnapshot.child('maxPlayers').val())
           let maxPoints = parseInt(gameSnapshot.child('game/maxPoints').val())
           this.maxImg = parseInt(gameSnapshot.child('game/size').val())

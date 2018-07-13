@@ -8,6 +8,10 @@ class QuizStore extends EventEmitter {
     this.answers = null
     this.score = 0
     this.gameId = null
+    this.multiplayerScores = null
+  }
+  getMultiplayerScores () {
+    return this.multiplayerScores
   }
   getQuizGame () {
     return this.game
@@ -36,6 +40,15 @@ class QuizStore extends EventEmitter {
         this.game = action.game
         this.gameId = action.gameId
         this.emit('multiplayer-quiz-loaded')
+        break
+      }
+      case 'MULTIPLAYER_SCORES': {
+        this.multiplayerScores = action.scores
+        this.emit('multiplayer-scores')
+        break
+      }
+      case 'MULTIPLAYER_NEXT_QUESTION': {
+        this.emit('next-question')
         break
       }
       case 'IMG_LOADED': {

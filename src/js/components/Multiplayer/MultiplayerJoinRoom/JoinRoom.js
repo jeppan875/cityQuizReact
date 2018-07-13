@@ -1,6 +1,8 @@
 import React from 'react'
 import QuizStore from '../../../stores/QuizStore'
 import * as firebase from 'firebase'
+import PlayerList from './PlayerList'
+import { Redirect } from 'react-router'
 const database = firebase.database()
 
 export default class JoinRoom extends React.Component {
@@ -11,14 +13,14 @@ export default class JoinRoom extends React.Component {
     this.state = {
       classNames: 'StandardButton',
       disabled: false,
-      gameId: null
+      gameId: null,
+      startGame: false
     }
   }
   componentWillMount () {
     QuizStore.on('multiplayer-quiz-loaded', this.quizLoaded)
   }
   quizLoaded () {
-    this.gameId = QuizStore.getGameId()
     this.setState({gameId: QuizStore.getGameId()})
     this.onReady()
   }
@@ -35,10 +37,10 @@ export default class JoinRoom extends React.Component {
       gameRef.once('value').then(function (gameSnapshot) {
         let maxPlayers = gameSnapshot.child('maxPlayers').val()
         if (parseInt(snapshot.val()) === parseInt(maxPlayers)) {
-         // startGame(qg, gameRef, timer, gameId, user)
+          this.setState({startGame: true})
         }
-      })
-    })
+      }.bind(this))
+    }.bind(this))
   }
 
   clickReady (e) {
@@ -53,21 +55,27 @@ export default class JoinRoom extends React.Component {
     })
   }
   render () {
-    return (
-      <div id='joinroom'>
-        <p className='no-margin'>Game key:</p>
-        <p id='key'>{this.state.gameId}</p>
-        <p>Game link:</p>
-        <p>
-          <a href='' id='gamekey' />
-        </p>
-        <p>Player list:</p>
-        <div id='playerlist' />
-        <div id='start'>
-          <button type='submit' id='startBtn' className={this.state.classNames} onClick={this.clickReady} disabled={this.state.disabled} >Start game</button>
-          <p id='wait' />
+    if (this.state.startGame) {
+      return <Redirect to='/multiplayer-quiz' />
+    } else {
+      return (
+        <div id='joinroom'>
+          <p className='no-margin'>Game key:</p>
+          <p id='key'>{this.state.gameId}</p>
+          <p>Game link:</p>
+          <p>
+            <a href='' id='gamekey' />
+          </p>
+          <p>Player list:</p>
+          <div id='playerlist'>
+            <PlayerList />
+          </div>
+          <div id='start'>
+            <button type='submit' id='startBtn' className={this.state.classNames} onClick={this.clickReady} disabled={this.state.disabled} >Start game</button>
+            <p id='wait' />
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
