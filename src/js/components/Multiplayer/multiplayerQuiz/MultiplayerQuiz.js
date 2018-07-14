@@ -64,7 +64,6 @@ export default class MultiplayerQuiz extends React.Component {
     })
     gameRef.child('state').on('value', function (snapshot) {
       let state = snapshot.val()
-      console.log(state)
       if (state === 'finished') {
         this.gameEnded = true
         this.endGame()

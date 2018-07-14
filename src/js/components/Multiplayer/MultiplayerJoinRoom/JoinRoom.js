@@ -14,7 +14,8 @@ export default class JoinRoom extends React.Component {
       classNames: 'StandardButton',
       disabled: false,
       gameId: null,
-      startGame: false
+      startGame: false,
+      renderQuiz: false
     }
   }
   componentWillMount () {
@@ -23,6 +24,24 @@ export default class JoinRoom extends React.Component {
   componentWillUnmount () {
     QuizStore.removeListener('multiplayer-quiz-loaded', this.quizLoaded)
     let readyCountRef = database.ref(`games/${this.state.gameId}/readyCount`)
+    let gameRef = database.ref(`games/${this.state.gameId}`)
+    let playerCount = database.ref(`games/${this.state.gameId}/playerCount`)
+    if (this.state.startGame === false) {
+      readyCountRef.once('value', function (snapshot) {
+        let update = parseInt(snapshot.val(), 10) - 1
+        if (update <= 0) {
+          update = 0
+        }
+        gameRef.update({readyCount: update})
+      })
+      playerCount.once('value', function (snapshot) {
+        let update = parseInt(snapshot.val(), 10) - 1
+        if (update <= 0) {
+          update = 0
+        }
+        gameRef.update({playerCount: update})
+      })
+    }
     readyCountRef.off('value')
   }
   quizLoaded () {
@@ -38,11 +57,13 @@ export default class JoinRoom extends React.Component {
         update = 0
       }
       gameRef.onDisconnect().update({readyCount: update})
-    // if (gameFinished) { return }
       gameRef.once('value').then(function (gameSnapshot) {
         let maxPlayers = gameSnapshot.child('maxPlayers').val()
         if (parseInt(snapshot.val(), 10) === parseInt(maxPlayers, 10)) {
           this.setState({startGame: true})
+          setTimeout(() => {
+            this.setState({renderQuiz: true})
+          }, 0)
         }
       }.bind(this))
     }.bind(this))
@@ -60,7 +81,7 @@ export default class JoinRoom extends React.Component {
     })
   }
   render () {
-    if (this.state.startGame) {
+    if (this.state.renderQuiz) {
       return <Redirect to='/multiplayer-quiz' />
     } else {
       return (
@@ -73,7 +94,7 @@ export default class JoinRoom extends React.Component {
           </p>
           <p>Player list:</p>
           <div id='playerlist'>
-            <PlayerList />
+            <PlayerList startGame={this.state.startGame} />
           </div>
           <div id='start'>
             <button type='submit' id='startBtn' className={this.state.classNames} onClick={this.clickReady} disabled={this.state.disabled} >Start game</button>
