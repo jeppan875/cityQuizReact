@@ -1,7 +1,7 @@
 import React from 'react'
-import QuizStore from '../../../stores/QuizStore'
+import QuizStore from '../../stores/QuizStore'
 import { Redirect } from 'react-router'
-import * as QuizActions from '../../../actions/QuizActions'
+import * as QuizActions from '../../actions/QuizActions'
 
 export default class Question extends React.Component {
   constructor () {

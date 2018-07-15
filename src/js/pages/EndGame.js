@@ -1,6 +1,6 @@
 import React from 'react'
-import PlayAgain from '../components/singlePlayer/endGame/PlayAgain'
-import ScoreBoard from '../components/singlePlayer/endGame/ScoreBoard'
+import PlayAgain from '../components/endGame/PlayAgain'
+import ScoreBoard from '../components/endGame/ScoreBoard'
 
 export default class EndGame extends React.Component {
   render () {

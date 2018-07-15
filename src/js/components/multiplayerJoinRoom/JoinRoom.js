@@ -1,5 +1,5 @@
 import React from 'react'
-import QuizStore from '../../../stores/QuizStore'
+import QuizStore from '../../stores/QuizStore'
 import * as firebase from 'firebase'
 import PlayerList from './PlayerList'
 import { Redirect } from 'react-router'

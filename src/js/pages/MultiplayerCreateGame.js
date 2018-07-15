@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateGameForm from '../components/Multiplayer/multiplayerCreateGame/CreateGameForm'
+import CreateGameForm from '../components/multiplayerCreateGame/CreateGameForm'
 
 export default class MultiplayerCreateGame extends React.Component {
   render () {

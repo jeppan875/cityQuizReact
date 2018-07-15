@@ -1,9 +1,9 @@
 import React from 'react'
 import { Redirect } from 'react-router'
-import QuizStore from '../../../stores/QuizStore'
-import QuizGame from '../../../game/QuizGame'
-import ReturnToMain from '../../singlePlayer/quiz/ReturnToMain'
-import * as QuizActions from '../../../actions/QuizActions'
+import QuizStore from '../../stores/QuizStore'
+import QuizGame from '../../game/QuizGame'
+import ReturnToMain from '../quiz/ReturnToMain'
+import * as QuizActions from '../../actions/QuizActions'
 import * as firebase from 'firebase'
 const database = firebase.database()
 

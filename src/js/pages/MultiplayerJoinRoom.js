@@ -1,5 +1,5 @@
 import React from 'react'
-import JoinRoom from '../components/Multiplayer/multiplayerJoinRoom/JoinRoom'
+import JoinRoom from '../components/multiplayerJoinRoom/JoinRoom'
 
 export default class MultiplayerJoinRoom extends React.Component {
   constructor () {

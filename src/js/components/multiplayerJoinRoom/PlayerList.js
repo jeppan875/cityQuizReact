@@ -1,6 +1,6 @@
 import React from 'react'
 import * as firebase from 'firebase'
-import QuizStore from '../../../stores/QuizStore'
+import QuizStore from '../../stores/QuizStore'
 const database = firebase.database()
 
 export default class PlayerList extends React.Component {
