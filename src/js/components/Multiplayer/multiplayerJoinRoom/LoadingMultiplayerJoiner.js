@@ -9,18 +9,25 @@ const database = firebase.database()
 export default class LoadingMultiplayerGame extends React.Component {
   constructor () {
     super()
+    let gameIdFromUrl = null
+    if (window.location.search) {
+      gameIdFromUrl = window.location.search.substring(1)
+    }
     this.imgLoaded = this.imgLoaded.bind(this)
     this.downloadQuiz = this.downloadQuiz.bind(this)
     this.state = {
       imgLoadCount: 0,
       startGame: false,
-      gameId: document.querySelector('#gameid').value,
+      gameId: gameIdFromUrl || document.querySelector('#gameid').value,
       gamefull: false
     }
+    console.log(gameIdFromUrl)
     this.imgLoadCount = 0
     this.quizGame = null
     this.maxImg = null
-    this.downloadQuiz()
+    setTimeout(() => {
+      this.downloadQuiz()
+    }, 2000)
   }
   componentWillMount () {
     QuizStore.on('img-loaded', this.imgLoaded)

@@ -16,6 +16,11 @@ import MultiplayerQuizGame from './js/pages/MultiplayerQuizGame'
 import MultiplayerEndGame from './js/pages/MultiplayerEndGame'
 
 class App extends Component {
+  componentWillMount () {
+    if (window.location.pathname === '/') {
+      window.history.pushState(null, null, '/')
+    }
+  }
   render () {
     return (
       <div id='wrapper'>
@@ -28,7 +33,7 @@ class App extends Component {
           <Route path='/multiplayer-main' exact component={MultiplayerMain} />
           <Route path='/create-multiplayer-game' exact component={MultiplayerCreateGame} />
           <Route path='/loading-multiplayer-game' exact component={LoadingMultiplayerGame} />
-          <Route path='/loading-multiplayer-joiner' exact component={LoadingMultiplayerJoiner} />
+          <Route path='/join' exact component={LoadingMultiplayerJoiner} />
           <Route path='/joinroom' exact component={MultiplayerJoinRoom} />
           <Route path='/multiplayer-quiz' exact component={MultiplayerQuizGame} />
           <Route path='/multiplayer-endgame' exact component={MultiplayerEndGame} />

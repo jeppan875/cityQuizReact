@@ -17,7 +17,6 @@ export default class StartMenu extends React.Component {
   authListener () {
     fire.auth().onAuthStateChanged(() => {
       let user = fire.auth().currentUser
-      console.log(user)
       if (user) {
         window.localStorage.setItem('user', user.uid)
         document.querySelector('#loginBtn').style.display = 'none'
@@ -33,7 +32,7 @@ export default class StartMenu extends React.Component {
     return (
       <div>
         <Header />
-        <SelectGameType redirect='/quiz' isMultiplayer={false} />
+        <SelectGameType />
         <MultiplayerButton />
       </div>
     )

@@ -10,6 +10,7 @@ const database = firebase.database()
 export default class LoadingMultiplayerGame extends React.Component {
   constructor () {
     super()
+    window.history.replaceState(null, null, '/multiplayer-main')
     if (document.querySelector('input[name="location"]:checked') === null) return
     this.imgLoaded = this.imgLoaded.bind(this)
     this.state = {

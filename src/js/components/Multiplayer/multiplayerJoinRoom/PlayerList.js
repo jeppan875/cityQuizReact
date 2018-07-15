@@ -18,10 +18,10 @@ export default class PlayerList extends React.Component {
   componentWillUnmount () {
     QuizStore.removeListener('multiplayer-quiz-loaded', this.getGameId)
     let playersRef = database.ref(`games/${this.gameId}/players`)
+    playersRef.off('value')
     if (this.props.startGame === false) {
       playersRef.child(firebase.auth().currentUser.uid).remove()
     }
-    playersRef.off('value')
   }
   getGameId () {
     this.gameId = QuizStore.getGameId()

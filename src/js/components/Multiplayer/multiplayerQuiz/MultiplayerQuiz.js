@@ -47,6 +47,11 @@ export default class MultiplayerQuiz extends React.Component {
     let nextCountRef = database.ref(`games/${this.gameId}/nextCount`)
     let playerCount = database.ref(`games/${this.gameId}/playerCount`)
     let maxPlayersRef = database.ref(`games/${this.gameId}/maxPlayers`)
+    playersRef.off('value')
+    nextCountRef.off('value')
+    playerCount.off('value')
+    maxPlayersRef.off('value')
+    gameRef.off('value')
     // If player leaves by pressing back button
     if (!this.gameEnded) {
       playersRef.child(firebase.auth().currentUser.uid).remove()
@@ -69,11 +74,6 @@ export default class MultiplayerQuiz extends React.Component {
         })
       }
     }
-    playersRef.off('value')
-    nextCountRef.off('value')
-    playerCount.off('value')
-    maxPlayersRef.off('value')
-    gameRef.off('value')
   }
   watchGame () {
     let gameRef = database.ref(`games/${this.gameId}`)

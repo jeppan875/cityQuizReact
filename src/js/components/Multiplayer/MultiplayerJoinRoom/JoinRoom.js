@@ -90,7 +90,7 @@ export default class JoinRoom extends React.Component {
           <p id='key'>{this.state.gameId}</p>
           <p>Game link:</p>
           <p>
-            <a href='' id='gamekey' />
+            {window.location.hostname}:{window.location.port}/join?{this.state.gameId}
           </p>
           <p>Player list:</p>
           <div id='playerlist'>

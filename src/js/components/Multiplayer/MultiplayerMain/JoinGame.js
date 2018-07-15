@@ -10,7 +10,7 @@ export default class JoinGame extends React.Component {
           <input type='text' id='gameid' name='answer' />
         </div>
         <div id='join'>
-          <Link to='/loading-multiplayer-joiner'> <button type='submit' id='joinBtn' className='StandardButton' >Join game</button></Link>
+          <Link to='/join'> <button type='submit' id='joinBtn' className='StandardButton' >Join game</button></Link>
         </div>
         <p id='joinError' />
       </div>
