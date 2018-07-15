@@ -14,7 +14,8 @@ export default class LoadingMultiplayerGame extends React.Component {
     this.state = {
       imgLoadCount: 0,
       startGame: false,
-      gameId: document.querySelector('#gameid').value
+      gameId: document.querySelector('#gameid').value,
+      gamefull: false
     }
     this.imgLoadCount = 0
     this.quizGame = null
@@ -56,8 +57,10 @@ export default class LoadingMultiplayerGame extends React.Component {
             playerCount.transaction(function (currentData) {
               return (currentData || 0) - 1
             })
+            this.setState({gamefull: true})
           }
         } else {
+          this.setState({gamefull: true})
         }
       }.bind(this), false)
     }.bind(this))
@@ -79,6 +82,8 @@ export default class LoadingMultiplayerGame extends React.Component {
   render () {
     if (this.state.startGame) {
       return <Redirect to='/joinroom' />
+    } else if (this.state.gamefull) {
+      return <Redirect to='/multiplayer-main' />
     } else {
       return (
         <div>
