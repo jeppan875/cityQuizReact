@@ -1,17 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 export default class JoinGame extends React.Component {
   render () {
     return (
       <div>
-        <div>
-          <p>Enter game key:</p>
-          <input type='text' id='gameid' name='answer' />
-        </div>
-        <div id='join'>
-          <Link to='/join'> <button type='submit' id='joinBtn' className='StandardButton' >Join game</button></Link>
-        </div>
+        <form onSubmit={this.props.onSubmit}>
+          <div>
+            <p>Enter game key:</p>
+            <input type='text' id='gameid' name='answer' />
+          </div>
+          <div id='join'>
+            <button type='submit' value='submit' id='joinBtn' className='StandardButton' >Join game</button>
+          </div>
+        </form>
         <p id='joinError' />
       </div>
     )

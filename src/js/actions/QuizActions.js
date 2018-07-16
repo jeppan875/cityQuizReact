@@ -5,6 +5,26 @@ export function startGame () {
     type: 'START_GAME'
   })
 }
+export function gameType (gameType) {
+  dispatcher.dispatch({
+    type: 'GAME_TYPE',
+    gameType: gameType
+  })
+}
+export function maxPlayers (maxPlayers) {
+  console.log(gameType)
+  dispatcher.dispatch({
+    type: 'MAX_PLAYERS',
+    maxPlayers: maxPlayers
+  })
+}
+export function gameId (gameId) {
+  console.log(gameId)
+  dispatcher.dispatch({
+    type: 'GAMEID',
+    gameId: gameId
+  })
+}
 export function loadedQuiz (quizGame) {
   dispatcher.dispatch({
     type: 'QUIZ_LOADED',

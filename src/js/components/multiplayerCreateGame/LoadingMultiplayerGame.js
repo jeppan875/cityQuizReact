@@ -2,7 +2,6 @@ import React from 'react'
 import { Redirect } from 'react-router'
 import QuizStore from '../../stores/QuizStore'
 import QuizGame from '../../game/QuizGame'
-import ReturnToMain from '../quiz/ReturnToMain'
 import * as QuizActions from '../../actions/QuizActions'
 import * as firebase from 'firebase'
 const database = firebase.database()
@@ -11,18 +10,17 @@ export default class LoadingMultiplayerGame extends React.Component {
   constructor () {
     super()
     window.history.replaceState(null, null, '/multiplayer-main')
-    if (document.querySelector('input[name="location"]:checked') === null) return
     this.imgLoaded = this.imgLoaded.bind(this)
     this.state = {
-      gameType: document.querySelector('input[name="location"]:checked'),
+      gameType: QuizStore.getGameType(),
       imgLoadCount: 0,
       startGame: false,
-      maxPlayers: parseInt(document.querySelector('input[name="nrPlayers"]:checked').value, 10)
+      maxPlayers: parseInt(QuizStore.getMaxPlayers(), 10)
     }
     this.gameId = null
     this.imgLoadCount = 0
     this.maxImg = this.getMaxImgs(this.state.gameType)
-    this.quizGame = new QuizGame(parseInt(this.state.gameType.value.split(' ')[0], 10), this.state.gameType.value.split(' ')[1] || 1000, this.state.maxPlayers)
+    this.quizGame = new QuizGame(parseInt(this.state.gameType.split(' ')[0], 10), this.state.gameType.split(' ')[1] || 1000, this.state.maxPlayers)
   }
   componentWillMount () {
     QuizStore.on('img-loaded', this.imgLoaded)
@@ -42,6 +40,7 @@ export default class LoadingMultiplayerGame extends React.Component {
     }
   }
   sendToDataBase (qg) {
+    console.log('sendtodatabase')
     let user = firebase.auth().currentUser
     let gameRef = database.ref('games').push()
     this.gameId = gameRef.key
@@ -63,23 +62,19 @@ export default class LoadingMultiplayerGame extends React.Component {
     players.update(updates)
   }
   getMaxImgs (val) {
-    let size = parseInt(val.value.split(' ')[0], 10)
+    let size = parseInt(val.split(' ')[0], 10)
+    console.log(size)
     return 3 * size + size * 0.4
   }
   render () {
     if (this.state.startGame) {
       return <Redirect to='/joinroom' />
-    }
-    if (document.querySelector('input[name="location"]:checked')) {
+    } else {
       return (
         <div>
           <p>render!</p>
           <progress max={this.maxImg} />
         </div>
-      )
-    } else {
-      return (
-        <ReturnToMain />
       )
     }
   }

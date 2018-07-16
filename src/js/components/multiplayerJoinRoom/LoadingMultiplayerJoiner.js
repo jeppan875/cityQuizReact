@@ -18,10 +18,9 @@ export default class LoadingMultiplayerGame extends React.Component {
     this.state = {
       imgLoadCount: 0,
       startGame: false,
-      gameId: gameIdFromUrl || document.querySelector('#gameid').value,
+      gameId: gameIdFromUrl || QuizStore.getGameId(),
       gamefull: false
     }
-    console.log(gameIdFromUrl)
     this.imgLoadCount = 0
     this.quizGame = null
     this.maxImg = null

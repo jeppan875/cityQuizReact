@@ -9,6 +9,8 @@ class QuizStore extends EventEmitter {
     this.score = 0
     this.gameId = null
     this.multiplayerScores = null
+    this.gametype = null
+    this.maxPlayers = null
   }
   getMultiplayerScores () {
     return this.multiplayerScores
@@ -16,8 +18,14 @@ class QuizStore extends EventEmitter {
   getQuizGame () {
     return this.game
   }
+  getMaxPlayers () {
+    return this.maxPlayers
+  }
   getGameId () {
     return this.gameId
+  }
+  getGameType () {
+    return this.gametype
   }
   getAnswers () {
     return this.answers
@@ -34,6 +42,20 @@ class QuizStore extends EventEmitter {
       case 'QUIZ_LOADED': {
         this.game = action.game
         this.emit('quiz-loaded')
+        break
+      }
+      case 'GAME_TYPE': {
+        this.gametype = action.gameType
+        break
+      }
+      case 'MAX_PLAYERS': {
+        this.maxPlayers = action.maxPlayers
+        break
+      }
+      case 'GAMEID': {
+        this.gameId = action.gameId
+        console.log('gameid')
+        this.emit('gameid')
         break
       }
       case 'MULTIPLAYER_QUIZ_LOADED': {

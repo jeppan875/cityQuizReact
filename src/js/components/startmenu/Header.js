@@ -9,7 +9,6 @@ export default class Header extends React.Component {
   }
   signout () {
     firebase.auth().signOut().then(function () {
-      console.log('Signed Out')
       document.querySelector('#loginBtn').style.display = 'inline-block'
       document.querySelector('#signoutBtn').style.display = 'none'
     }, function (error) {
