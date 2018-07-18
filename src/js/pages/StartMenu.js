@@ -31,9 +31,18 @@ export default class StartMenu extends React.Component {
   render () {
     return (
       <div>
-        <Header />
-        <SelectGameType />
-        <MultiplayerButton />
+        <div className='card background'>
+          <div className='card-body'>
+            <Header />
+          </div>
+        </div>
+        <div className='card background'>
+          <div className='card-body'>
+            <h5>Select game type:</h5>
+            <SelectGameType />
+            <MultiplayerButton />
+          </div>
+        </div>
       </div>
     )
   }

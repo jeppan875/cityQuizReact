@@ -35,8 +35,16 @@ export default class MultiplayerMain extends React.Component {
     }
     return (
       <div id='multiplayerDiv'>
-        <CreateGameButton />
-        <JoinGame onSubmit={this.clickJoin} />
+        <div className='card background'>
+          <div className='card-body'>
+            <CreateGameButton />
+          </div>
+        </div>
+        <div className='card background'>
+          <div className='card-body'>
+            <JoinGame onSubmit={this.clickJoin} />
+          </div>
+        </div>
       </div>
     )
   }

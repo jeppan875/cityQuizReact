@@ -127,38 +127,42 @@ export default class Question extends React.Component {
       return <Redirect to='/end-game' />
     }
     return (
-      <div id='quizDiv' className='ripple'>
-        <p id='timer'>{this.state.timeLeft}</p>
-        <div id='viewDiv'>
-          <img id='view' alt='' src={this.state.currentImg} />
+      <div id='quizDiv' className='container'>
+        <p id='spScore'>Score: {this.state.score}</p>
+        <div className='card background'>
+          <img id='view' className='card-img-top' alt='' src={this.state.currentImg} />
+          <div className='card-body'>
+            <h5 className='card-title'>{this.state.question}</h5>
+            <progress max={this.state.startTime} value={this.state.timeLeft} />
+          </div>
         </div>
-        <progress max={this.state.startTime} value={this.state.timeLeft} />
-        <p id='pquestion'>{this.state.question}</p>
-        <div id='quiz'>
-          <div id='question'>
-            <div>
-              <input type='radio' id='q1' className='option-input radio' name='answer' value={this.state.alternatives[0]} />
-              <label htmlFor='q1' id='l1'>{this.state.alternatives[0]}</label>
+        <div className='card background'>
+          <div className='card-body'>
+            <div className='row'>
+              <div>
+                <div>
+                  <input type='radio' id='q1' className='option-input radio inline' name='answer' value={this.state.alternatives[0]} />
+                  <label htmlFor='q1' id='l1'>{this.state.alternatives[0]}</label>
+                </div>
+                <div>
+                  <input type='radio' id='q2' className='option-input radio inline' name='answer' value={this.state.alternatives[1]} />
+                  <label htmlFor='q2' id='l2'>{this.state.alternatives[1]}</label>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <input type='radio' id='q3' className='option-input radio inline' name='answer' value={this.state.alternatives[2]} />
+                  <label htmlFor='q3' id='l3'>{this.state.alternatives[2]}</label>
+                </div>
+                <div>
+                  <input type='radio' id='q4' className='option-input radio inline' name='answer' value={this.state.alternatives[3]} />
+                  <label htmlFor='q4' id='l4'>{this.state.alternatives[3]}</label>
+                </div>
+              </div>
             </div>
-            <div>
-              <input type='radio' id='q2' className='option-input radio' name='answer' value={this.state.alternatives[1]} />
-              <label htmlFor='q2' id='l2'>{this.state.alternatives[1]}</label>
+            <div id='btn'>
+              <button type='submit' id='send' className='StandardButton btn-block' onClick={this.sendAnswer.bind(this)}>send</button>
             </div>
-            <div>
-              <input type='radio' id='q3' className='option-input radio' name='answer' value={this.state.alternatives[2]} />
-              <label htmlFor='q3' id='l3'>{this.state.alternatives[2]}</label>
-            </div>
-            <div>
-              <input type='radio' id='q4' className='option-input radio' name='answer' value={this.state.alternatives[3]} />
-              <label htmlFor='q4' id='l4'>{this.state.alternatives[3]}</label>
-            </div>
-          </div>
-          <div id='btn'>
-            <button type='submit' id='send' className='StandardButton' onClick={this.sendAnswer.bind(this)}>send</button>
-          </div>
-          <div id='scoreBoard'>
-            <p id='spScore'>{this.state.score}</p>
-            <table />
           </div>
         </div>
       </div>

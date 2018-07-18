@@ -3,12 +3,27 @@ html, body, header, main, progress {margin: 0; padding: 0;}
 html, body, #root{width: 100%; height: 100%;}
 header {margin-left: 70%;}
 img {width: 350px; height: 300px;padding-top: 0; margin-top: 0; position: relative;display: block;
-    -moz-box-shadow: 0 0 5px 3px rgb(171, 188, 149);
--webkit-box-shadow: 0 0 5px 3px rgb(171, 188, 149);
-box-shadow: 0 0 5px 3x rgb(171, 188, 149);
 }
-progress {width: 350px;display: block;}
+.word-break {word-wrap: break-word;}
+.float-left {float: left;}
+.float-right {float: right;}
+.card {
+  margin-top: 3%; margin-left: 0%; margin-right: 0%;
+  -moz-box-shadow: 0 0 5px 3px rgb(171, 188, 149);
+  -webkit-box-shadow: 0 0 5px 3px rgb(171, 188, 149);
+  box-shadow: 0 0 5px 3x rgb(171, 188, 149);
+}
+
+.inline {display:inline;}
+progress {width: 100%;display: block;}
 #viewDiv {min-height: 350px; margin: 0 auto;}
+.background {
+      background: rgb(244, 249, 212); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* Standard syntax */
+}
 #wrapper {
     margin: 0 auto; max-width: 900px; width:55%; height: 100%;
     background: rgb(244, 249, 212); /* For browsers that do not support gradients */
@@ -17,14 +32,14 @@ progress {width: 350px;display: block;}
     background: -moz-linear-gradient(bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* Standard syntax */
 }
+#gameid {width: 100%;}
 #scoreBoard {font-size: 16px;}
 main {font-family: 'Pacifico', cursive; margin-left: 20%; margin-right: 20%;}
 #timer, #spScore {margin: 0;padding: 0; }
 .no-margin {margin: 0;padding: 0; }
-#scoreBoard {float: right;}
 #quiz {display: inline-block; }
 #viewDiv {overflow: hidden;}
-label {font-size: 18px}
+label {font-size: 16px}
 .StandardButton
 {
 	transition: all 0.1s;
@@ -188,18 +203,14 @@ progress[value]::-webkit-progress-value {
     background-size: 35px 20px, 100% 100%, 100% 100%;
 }
 @media only screen and (max-width:900px) {
-  img {width: 300px; height: 300px;}
-  progress {width: 300px;}
+  img {width: 300px; height: 240px;}
+  progress {width: 100%;}
   #viewDiv {min-height: 270px; margin: 0 auto;}
+  #wrapper {width:100%;}
 }
 @media only screen and (max-width:700px) {
-  #wrapper {width:100%;}
   img {width: 100%;}
-  progress {width: 100%;}
-  main {margin-left:20%; margin-right: 20%;font-size: 16px;}
-}
-@media only screen and (max-width:640px) {
-    main {margin-left:10%; margin-right: 10%;font-size: 16px;}
+  main {margin-left:2%; margin-right: 2%;font-size: 16px;}
 }
 
 .App {

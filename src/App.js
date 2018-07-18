@@ -23,7 +23,7 @@ class App extends Component {
   }
   render () {
     return (
-      <div id='wrapper'>
+      <div id='wrapper' className='background-lighter'>
         <main>
           <Route path='/' exact component={StartMenu} />
           <Route path='/quiz' exact component={Quiz} />

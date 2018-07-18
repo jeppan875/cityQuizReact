@@ -20,7 +20,7 @@ export default class Header extends React.Component {
       fontSize: '18px'
     }
     return (
-      <div id='login'>
+      <div id='login' className='float-right'>
         <Link to='/login'><button type='submit' id='loginBtn' className='StandardButton' style={containerStyle}>Login</button></Link>
         <button type='submit' id='signoutBtn' onClick={this.signout} className='StandardButton' style={containerStyle}>Sign out</button>
       </div>
