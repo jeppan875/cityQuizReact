@@ -31,12 +31,12 @@ export default class StartMenu extends React.Component {
   render () {
     return (
       <div>
-        <div className='card background'>
+        <div className='card card-position transparent borders slideInFromTop'>
           <div className='card-body'>
             <Header />
           </div>
         </div>
-        <div className='card background'>
+        <div className='card transparent card-position borders slideInFromLeft'>
           <div className='card-body'>
             <h5>Select game type:</h5>
             <SelectGameType />

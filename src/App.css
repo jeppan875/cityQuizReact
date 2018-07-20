@@ -1,5 +1,5 @@
 .no-list-style {list-style-type: none}
-html, body, header, main, progress {margin: 0; padding: 0;}
+html, body, header, main, progress {margin: 0; padding: 0; opacity: 1;}
 html, body, #root{width: 100%; height: 100%;}
 header {margin-left: 70%;}
 img {width: 350px; height: 300px;padding-top: 0; margin-top: 0; position: relative;display: block;
@@ -7,13 +7,15 @@ img {width: 350px; height: 300px;padding-top: 0; margin-top: 0; position: relati
 .word-break {word-wrap: break-word;}
 .float-left {float: left;}
 .float-right {float: right;}
-.card {
-  margin-top: 3%; margin-left: 0%; margin-right: 0%;
-  -moz-box-shadow: 0 0 5px 3px rgb(171, 188, 149);
-  -webkit-box-shadow: 0 0 5px 3px rgb(171, 188, 149);
-  box-shadow: 0 0 5px 3x rgb(171, 188, 149);
+.card-position {
+  margin-bottom: 3%; margin-left: 0%; margin-right: 0%;
 }
 
+.borders {
+  border-width: 14px !important;
+  border-radius: 20px !important;
+  border-image: repeating-linear-gradient(45deg,rgb(231, 244, 181),rgb(231, 244, 181) 10px,rgb(170, 192, 80)10px,rgb(170, 192, 80) 20px) 20 !important;
+}
 .inline {display:inline;}
 progress {width: 100%;display: block;}
 #viewDiv {min-height: 350px; margin: 0 auto;}
@@ -24,14 +26,22 @@ progress {width: 100%;display: block;}
     background: -moz-linear-gradient(bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* Standard syntax */
 }
+.card-background {
+  background-image: url("./images/card-backgrounds/E7F4B5-0.5.png");
+  background-size: cover;
+}
+.transparent {
+  background: rgb(244, 249, 212);
+  background: rgba(244, 249, 212, 0.8) !important;
+}
+.main-background {
+  background-image: url("./images/main-backgrounds/back5.png");
+  background-size: cover;
+}
 #wrapper {
     margin: 0 auto; max-width: 900px; width:55%; height: 100%;
-    background: rgb(244, 249, 212); /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left top, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to bottom right, rgb(244, 249, 212), rgb(231, 244, 181)); /* Standard syntax */
 }
+.font-size-16 {font-size: 16px;}
 #gameid {width: 100%;}
 #scoreBoard {font-size: 16px;}
 main {font-family: 'Pacifico', cursive; margin-left: 20%; margin-right: 20%;}
@@ -40,6 +50,7 @@ main {font-family: 'Pacifico', cursive; margin-left: 20%; margin-right: 20%;}
 #quiz {display: inline-block; }
 #viewDiv {overflow: hidden;}
 label {font-size: 16px}
+
 .StandardButton
 {
 	transition: all 0.1s;
@@ -65,22 +76,48 @@ label {font-size: 16px}
 	border-bottom: 5px solid #d0e6ce;
   text-shadow: 0px -2px #d0e6ce;	
 }
-.rippleEffect- {
-  animation: ripple 1s ease-out;
+.slideInFromLeft {
+  animation: 0.2s ease-out 0s 1 slideInFromLeft;
 }
-
-@keyframes ripple {
+.slideInFromRight {
+  animation: 0.2s ease-out 0s 1 slideInFromRight;
+}
+.slideInFromTop {
+  animation: 0.2s ease-out 0s 1 slideInFromTop;
+}
+.slideInFromBottom {
+  animation: 0.2s ease-out 0s 1 slideInFromBottom;
+}
+@keyframes slideInFromLeft {
   0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
+      transform: translateX(-100%);
   }
   100% {
-    opacity: 0;
-    transform: scale(40, 40);
+      transform: translateX(0);
+  }
+}
+@keyframes slideInFromRight {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+@keyframes slideInFromTop {
+  0% {
+      transform: translateY(-100%);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+@keyframes slideInFromBottom {
+  0% {
+      transform: translateY(100%);
+  }
+  100% {
+      transform: translateY(0);
   }
 }
 #viewDiv {height: 225px;}

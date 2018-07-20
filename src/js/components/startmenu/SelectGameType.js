@@ -22,7 +22,7 @@ export default class SelectGameType extends React.Component {
       return <Redirect to='/load-quiz' />
     }
     return (
-      <form onSubmit={this.clickStart.bind(this)}>
+      <form onSubmit={this.clickStart.bind(this)} >
         <div id='gameoption'>
           <div>
             <input type='radio' className='option-input radio' id='five-questions' name='gametype' value='5 10000' defaultChecked />

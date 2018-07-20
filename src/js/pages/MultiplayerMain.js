@@ -35,12 +35,12 @@ export default class MultiplayerMain extends React.Component {
     }
     return (
       <div id='multiplayerDiv'>
-        <div className='card background'>
+        <div className='card card-position transparent borders slideInFromRight'>
           <div className='card-body'>
             <CreateGameButton />
           </div>
         </div>
-        <div className='card background'>
+        <div className='card transparent card-position borders slideInFromLeft'>
           <div className='card-body'>
             <JoinGame onSubmit={this.clickJoin} />
           </div>

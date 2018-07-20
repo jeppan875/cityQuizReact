@@ -17,8 +17,5 @@
       "source": "**",
       "destination": "/"
     } ]  
-  },
-  "storage": {
-    "rules": "storage.rules"
   }
 }

@@ -6,7 +6,7 @@ export default class PlayAgain extends React.Component {
     return (
       <div>
         <div>
-          <Link to='/'><button type='submit' id='play-again' className='StandardButton'>Main Menu</button></Link>
+          <Link to='/'><button type='submit' id='play-again' className='StandardButton btn-block'>Main Menu</button></Link>
         </div>
       </div>
     )
