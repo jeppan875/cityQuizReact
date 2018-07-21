@@ -4,16 +4,40 @@ html, body, #root{width: 100%; height: 100%;}
 header {margin-left: 70%;}
 img {width: 350px; height: 300px;padding-top: 0; margin-top: 0; position: relative;display: block;
 }
-.word-break {word-wrap: break-word;}
 .float-left {float: left;}
 .float-right {float: right;}
 .card-position {
   margin-bottom: 3%; margin-left: 0%; margin-right: 0%;
 }
-
+.topp {
+  position: absolute;
+  top: 0px; 
+}
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+.box-effects {
+  border-radius: 20px;
+}
 .borders {
-  border-width: 14px !important;
-  border-radius: 20px !important;
+  border-width: 10px !important;
   border-image: repeating-linear-gradient(45deg,rgb(231, 244, 181),rgb(231, 244, 181) 10px,rgb(170, 192, 80)10px,rgb(170, 192, 80) 20px) 20 !important;
 }
 .inline {display:inline;}
@@ -30,9 +54,14 @@ progress {width: 100%;display: block;}
   background-image: url("./images/card-backgrounds/E7F4B5-0.5.png");
   background-size: cover;
 }
+.vertical {
+  display: inline-block;
+  -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+  transform: rotate(-90deg);
+}
 .transparent {
   background: rgb(244, 249, 212);
-  background: rgba(244, 249, 212, 0.8) !important;
+  background: rgba(244, 249, 212, 0.9) !important;
 }
 .main-background {
   background-image: url("./images/main-backgrounds/back5.png");
@@ -50,6 +79,7 @@ main {font-family: 'Pacifico', cursive; margin-left: 20%; margin-right: 20%;}
 #quiz {display: inline-block; }
 #viewDiv {overflow: hidden;}
 label {font-size: 16px}
+#spScore {background:rgba(73, 68, 68, 0.6); color:rgb(255, 255, 255) ; padding:2px; border-radius: 5px;}
 
 .StandardButton
 {
@@ -58,7 +88,7 @@ label {font-size: 16px}
     position: relative;
 	padding: 5px 10px;
   margin: 0px 5px 5px 0px;
-	border-radius: 10px;
+	border-radius: 4px;
 	font-family: 'Pacifico', cursive;
 	font-size: 26px;
 	color: #FFF;
@@ -137,7 +167,24 @@ label {font-size: 16px}
     opacity: 0;
   }
 }
-
+label {
+  background: rgb(231, 245, 140);
+  padding: 2px 2px;
+  margin-left: 3px;
+  border-radius: 5px;
+  width: 45%;
+  height: 100%;
+}
+label:hover {
+  background: #82BF56;
+}
+input[type=radio]:checked + label {
+	color: white;
+	background: #82BF56;
+}
+.width-100 {
+  width: 100%;
+}
 .option-input {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -156,7 +203,7 @@ label {font-size: 16px}
   border: none;
   color: #fff;
   cursor: pointer;
-  display: inline-block;
+  display: none;
   margin-right: 0.5rem;
   outline: none;
   position: relative;
@@ -168,11 +215,12 @@ label {font-size: 16px}
 .option-input:checked {
   background: #40e0d0;
 }
+
 .option-input:checked::before {
   height: 16px;
   width: 16px;
   position: absolute;
-  content: '✔';
+  content: none;
   display: inline-block;
   font-size: 16px;
   text-align: center;
