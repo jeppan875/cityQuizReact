@@ -2,6 +2,16 @@ import React from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import * as firebase from 'firebase'
 const uiConfig = {
+  callbacks: {
+    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      var isNewUser = authResult.additionalUserInfo.isNewUser
+      console.log(isNewUser)
+      return false
+    },
+    uiShown: function () {
+     // document.getElementById('loader').style.display = 'none'
+    }
+  },
   // Popup signin flow rather than redirect flow.
   signInFlow: 'redirect',
   // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.

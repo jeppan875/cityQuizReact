@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import Login from './js/pages/Login'
 
 export default function PrivateRoute ({
   component: Component,
@@ -13,7 +14,7 @@ export default function PrivateRoute ({
         authenticated === true ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect to='/login' />
+          <Login />
         )
       }
     />
