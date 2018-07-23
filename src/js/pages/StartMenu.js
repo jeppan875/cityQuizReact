@@ -18,13 +18,9 @@ export default class StartMenu extends React.Component {
     fire.auth().onAuthStateChanged(() => {
       let user = fire.auth().currentUser
       if (user) {
-        window.localStorage.setItem('user', user.uid)
         document.querySelector('#loginBtn').style.display = 'none'
         document.querySelector('#signoutBtn').style.display = 'inline-block'
       } else {
-        document.querySelector('#loginBtn').style.display = 'inline-block'
-        document.querySelector('#signoutBtn').style.display = 'none'
-        window.localStorage.removeItem('user')
       }
     })
   }

@@ -131,7 +131,7 @@ export default class Question extends React.Component {
       <div id='quizDiv' className='container'>
         <div className='card transparent card-position borders slideInFromTop'>
           <img id='view' className='card-img-top' alt='' src={this.state.currentImg} />
-          <p className='top-right' id='spScore'>Score: {this.state.score}</p>
+          <p className='top-right score-board' id='spScore'>Score: {this.state.score}</p>
           <div className='card-body'>
             <h5 className='card-title font-size-16 no-margin'>{this.state.question}</h5>
             <progress className='no-margin' max={this.state.startTime} value={this.state.timeLeft} />

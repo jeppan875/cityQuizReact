@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import * as firebase from 'firebase'
+// import * as firebase from 'firebase'
+import fire from '../../../fire'
 
 export default class Header extends React.Component {
   constructor () {
@@ -8,9 +9,8 @@ export default class Header extends React.Component {
     this.signout = this.signout.bind(this)
   }
   signout () {
-    firebase.auth().signOut().then(function () {
-      document.querySelector('#loginBtn').style.display = 'inline-block'
-      document.querySelector('#signoutBtn').style.display = 'none'
+    fire.auth().signOut().then(function () {
+      console.log('signout')
     }, function (error) {
       console.error('Sign Out Error', error)
     })

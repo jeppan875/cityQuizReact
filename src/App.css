@@ -79,7 +79,7 @@ main {font-family: 'Pacifico', cursive; margin-left: 20%; margin-right: 20%;}
 #quiz {display: inline-block; }
 #viewDiv {overflow: hidden;}
 label {font-size: 16px}
-#spScore {background:rgba(73, 68, 68, 0.6); color:rgb(255, 255, 255) ; padding:2px; border-radius: 5px;}
+.score-board {background:rgba(73, 68, 68, 0.6); color:rgb(255, 255, 255) ; padding:2px; border-radius: 5px;}
 
 .StandardButton
 {

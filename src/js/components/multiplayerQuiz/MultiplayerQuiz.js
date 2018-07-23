@@ -181,11 +181,6 @@ export default class MultiplayerQuiz extends React.Component {
         playerRef.update({score: newScore})
       }
       if (this.gameEnded === true) return
-      // reset checked buttons
-      let input = document.querySelectorAll('input')
-      for (let i = 0; i < 4; i++) {
-        input[i].checked = false
-      }
       nextCount.transaction(function (nextCount) {
         return (nextCount || 0) + 1
       })
@@ -205,6 +200,10 @@ export default class MultiplayerQuiz extends React.Component {
       classNames: 'StandardButton',
       disabled: false
     })
+    let input = document.querySelectorAll('input')
+    for (let i = 0; i < 4; i++) {
+      input[i].checked = false
+    }
     this.picCount = 0
     this.game.currentCount++
     this.stopTimer()
@@ -249,36 +248,10 @@ export default class MultiplayerQuiz extends React.Component {
       return <Redirect to='/multiplayer-endgame' />
     }
     return (
-      <div id='quizDiv' className='ripple'>
-        <p id='timer'>{this.state.timeLeft}</p>
-        <div id='viewDiv'>
-          <img id='view' alt='' src={this.state.currentImg} />
-        </div>
-        <progress max={this.state.startTime} value={this.state.timeLeft} />
-        <p id='pquestion'>{this.state.question}</p>
-        <div id='quiz'>
-          <div id='question'>
-            <div>
-              <input type='radio' id='q1' className='option-input radio' name='answer' value={this.state.alternatives[0]} />
-              <label htmlFor='q1' id='l1'>{this.state.alternatives[0]}</label>
-            </div>
-            <div>
-              <input type='radio' id='q2' className='option-input radio' name='answer' value={this.state.alternatives[1]} />
-              <label htmlFor='q2' id='l2'>{this.state.alternatives[1]}</label>
-            </div>
-            <div>
-              <input type='radio' id='q3' className='option-input radio' name='answer' value={this.state.alternatives[2]} />
-              <label htmlFor='q3' id='l3'>{this.state.alternatives[2]}</label>
-            </div>
-            <div>
-              <input type='radio' id='q4' className='option-input radio' name='answer' value={this.state.alternatives[3]} />
-              <label htmlFor='q4' id='l4'>{this.state.alternatives[3]}</label>
-            </div>
-          </div>
-          <div id='btn'>
-            <button type='submit' id='send' className={this.state.classNames} disabled={this.state.disabled} onClick={this.answerSent.bind(this)}>send</button>
-          </div>
-          <div id='scoreBoard'>
+      <div id='quizDiv' className='container'>
+        <div className='card transparent card-position borders slideInFromTop'>
+          <img id='view' className='card-img-top' alt='' src={this.state.currentImg} />
+          <div id='scoreBoard' className='top-right score-board'>
             <table>
               <tbody>
                 {this.state.scores.map((playerScore, i) =>
@@ -286,6 +259,39 @@ export default class MultiplayerQuiz extends React.Component {
                 )}
               </tbody>
             </table>
+          </div>
+          <div className='card-body'>
+            <h5 className='card-title font-size-16 no-margin'>{this.state.question}</h5>
+            <progress className='no-margin' max={this.state.startTime} value={this.state.timeLeft} />
+          </div>
+        </div>
+        <div className='card transparent card-position borders slideInFromBottom'>
+          <div className='card-body'>
+            <div>
+              <div>
+                <div className='inline'>
+                  <input type='radio' id='q1' className='option-input radio inline' name='answer' disabled={this.state.disabled} value={this.state.alternatives[0]} />
+                  <label htmlFor='q1' id='l1'>{this.state.alternatives[0]}</label>
+                </div>
+                <div className='inline'>
+                  <input type='radio' id='q2' className='option-input radio inline' name='answer' disabled={this.state.disabled} value={this.state.alternatives[1]} />
+                  <label htmlFor='q2' id='l2'>{this.state.alternatives[1]}</label>
+                </div>
+              </div>
+              <div>
+                <div className='inline'>
+                  <input type='radio' id='q3' className='option-input radio inline' name='answer' disabled={this.state.disabled} value={this.state.alternatives[2]} />
+                  <label htmlFor='q3' id='l3'>{this.state.alternatives[2]}</label>
+                </div>
+                <div className='inline'>
+                  <input type='radio' id='q4' className='option-input radio inline' name='answer' disabled={this.state.disabled} value={this.state.alternatives[3]} />
+                  <label className='label-custom' htmlFor='q4' id='l4'>{this.state.alternatives[3]}</label>
+                </div>
+              </div>
+            </div>
+            <div id='btn'>
+              <button type='submit' id='send' className={this.state.classNames} disabled={this.state.disabled} onClick={this.answerSent.bind(this)}>send</button>
+            </div>
           </div>
         </div>
       </div>
