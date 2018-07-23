@@ -58,7 +58,7 @@ export default class LoadingMultiplayerGame extends React.Component {
             }
             players.update(updates)
             let questions = game
-            this.quizGame = new QuizGame(game.length, maxPoints, maxPlayers, true, questions)
+            this.quizGame = new QuizGame(false, game.length, maxPoints, maxPlayers, true, questions)
           } else {
             playerCount.transaction(function (currentData) {
               return (currentData || 0) - 1

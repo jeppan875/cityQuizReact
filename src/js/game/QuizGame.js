@@ -3,15 +3,17 @@ import MultiPic from './MultiPic'
 const citiesLib = require('./lib/cities')
 const skylineLib = require('./lib/skylineLib')
 const cities = citiesLib.cities
+const levels = require('./lib/levels')
+
 class QuizGame {
-  constructor (size, maxPoints, playerCount, multiplayer, questionsArr) {
+  constructor (hasLevels, size, maxPoints, playerCount, multiplayer, questionsArr) {
     if (!multiplayer) {
       this.size = size + size * 0.4
       let citiesCount = size
       this.maxPoints = maxPoints
-      let cities = this.getCities(citiesCount)
+      let cities = this.getCities(citiesCount, hasLevels)
       this.cities = cities
-      let skylines = this.getSkyline(size * 0.4)
+      let skylines = this.getSkyline(size * 0.4, hasLevels)
       this.skylines = skylines
       this.currentCount = 0
       this.questions = this.questions(citiesCount, cities, skylines)
@@ -52,7 +54,10 @@ class QuizGame {
     return arr
   }
   
-  getCities (nr) {
+  getCities (nr, hasLevels) {
+    if (hasLevels) {
+      return this.shuffleCities(levels.levels["2"].getMultipic())
+    }
     let arr
     let europe = Object.keys(cities.europe)
     let northAmerica = Object.keys(cities.north_america)
@@ -63,7 +68,10 @@ class QuizGame {
     return arr.slice(0, nr)
   }
   
-  getSkyline (nr) {
+  getSkyline (nr, hasLevels) {
+    if (hasLevels) {
+      return this.shuffleCities(levels.levels["2"].getSkyline())
+    }
     let skylines = Object.keys(skylineLib.skylineLib)
     this.shuffleCities(skylines)
     return skylines.slice(0, nr)

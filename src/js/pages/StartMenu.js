@@ -1,6 +1,6 @@
 import React from 'react'
 import fire from '../../fire'
-import SelectGameType from '../components/startmenu/SelectGameType'
+import PlayButton from '../components/startmenu/PlayButton'
 import Header from '../components/startmenu/Header'
 import MultiplayerButton from '../components/startmenu/MultiplayerButton'
 
@@ -34,8 +34,11 @@ export default class StartMenu extends React.Component {
         </div>
         <div className='card transparent card-position borders slideInFromLeft'>
           <div className='card-body'>
-            <h5>Select game type:</h5>
-            <SelectGameType />
+            <PlayButton />
+          </div>
+        </div>
+        <div className='card transparent card-position borders slideInFromLeft'>
+          <div className='card-body'>
             <MultiplayerButton />
           </div>
         </div>

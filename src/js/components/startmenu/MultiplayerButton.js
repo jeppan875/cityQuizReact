@@ -26,7 +26,7 @@ export default class MultiplayerButton extends React.Component {
     }
     return (
       <div id='multiplayerDiv' >
-        <button type='submit' id='multiplayerBtn' className='StandardButton' onClick={this.playMultiplayer} >Multiplayer</button>
+        <button type='submit' id='multiplayerBtn' className='StandardButton btn-block' onClick={this.playMultiplayer} >Multiplayer</button>
         <p>{this.state.notLoggedIn}</p>
       </div>
     )

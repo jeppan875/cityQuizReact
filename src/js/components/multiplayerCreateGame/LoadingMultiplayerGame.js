@@ -20,7 +20,7 @@ export default class LoadingMultiplayerGame extends React.Component {
     this.gameId = null
     this.imgLoadCount = 0
     this.maxImg = this.getMaxImgs(this.state.gameType)
-    this.quizGame = new QuizGame(parseInt(this.state.gameType.split(' ')[0], 10), this.state.gameType.split(' ')[1] || 1000, this.state.maxPlayers)
+    this.quizGame = new QuizGame(false, parseInt(this.state.gameType.split(' ')[0], 10), this.state.gameType.split(' ')[1] || 1000, this.state.maxPlayers)
   }
   componentWillMount () {
     QuizStore.on('img-loaded', this.imgLoaded)
