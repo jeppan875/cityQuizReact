@@ -16,6 +16,8 @@ import MultiplayerQuizGame from './js/pages/MultiplayerQuizGame'
 import MultiplayerEndGame from './js/pages/MultiplayerEndGame'
 import fire from './fire'
 import PrivateRoute from './PrivateRoute'
+import * as firebase from 'firebase'
+const database = firebase.database()
 
 class App extends Component {
   constructor () {
@@ -37,6 +39,14 @@ class App extends Component {
           authenticated: true,
           currentUser: user,
           loading: false
+        })
+        let userRef = database.ref(`users/${user.uid}`)
+        userRef.once('value', function (snapshot) {
+          console.log(snapshot.val())
+          let level = snapshot.child('level').val()
+          let experience = snapshot.child('experience').val()
+          console.log(level)
+          console.log(experience)
         })
       } else {
         this.setState({

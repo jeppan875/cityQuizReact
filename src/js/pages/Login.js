@@ -1,12 +1,20 @@
 import React from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import * as firebase from 'firebase'
+const database = firebase.database()
 
 const uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
       var isNewUser = authResult.additionalUserInfo.isNewUser
-      console.log(isNewUser)
+      let user = firebase.auth().currentUser
+      if (isNewUser) {
+        let newUser = database.ref(`users/${user.uid}`)
+        newUser.set({
+          level: 1,
+          experience: 0
+        })
+      }
       window.history.replaceState(null, null, '/')
       window.location.reload()
       return false
