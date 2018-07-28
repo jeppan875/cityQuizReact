@@ -1,19 +1,30 @@
 import React from 'react'
 import fire from '../../fire'
-import PlayButton from '../components/startmenu/PlayButton'
 import Header from '../components/startmenu/Header'
 import MultiplayerButton from '../components/startmenu/MultiplayerButton'
+import SelectGameType from '../components/multiplayerCreateGame/SelectGameType'
+import * as QuizAction from '../actions/QuizActions'
+import CreateGameButton from '../components/multiplayerCreateGame/CreateButton'
+import { Redirect } from 'react-router'
 
 export default class StartMenu extends React.Component {
   constructor () {
     super()
     this.authListener = this.authListener.bind(this)
+    this.state = {
+      clickedstart: false
+    }
   }
 
   componentDidMount () {
     this.authListener()
   }
-
+  clickStart (e) {
+    e.preventDefault()
+    let value = e.target
+    QuizAction.gameType(value.gametype.value)
+    this.setState({clickedstart: true})
+  }
   authListener () {
     fire.auth().onAuthStateChanged(() => {
       let user = fire.auth().currentUser
@@ -25,6 +36,9 @@ export default class StartMenu extends React.Component {
     })
   }
   render () {
+    if (this.state.clickedstart) {
+      return <Redirect to='/load-quiz' />
+    }
     return (
       <div>
         <div className='card card-position transparent borders slideInFromTop'>
@@ -34,7 +48,10 @@ export default class StartMenu extends React.Component {
         </div>
         <div className='card transparent card-position borders slideInFromLeft'>
           <div className='card-body'>
-            <PlayButton />
+            <form onSubmit={this.clickStart.bind(this)}>
+              <SelectGameType />
+              <CreateGameButton />
+            </form>
           </div>
         </div>
         <div className='card transparent card-position borders slideInFromLeft'>

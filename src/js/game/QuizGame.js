@@ -6,14 +6,15 @@ const cities = citiesLib.cities
 const levels = require('./lib/levels')
 
 class QuizGame {
-  constructor (hasLevels, size, maxPoints, playerCount, multiplayer, questionsArr) {
+  constructor (size, maxPoints, playerCount, multiplayer, questionsArr) {
     if (!multiplayer) {
       this.size = size + size * 0.4
       let citiesCount = size
       this.maxPoints = maxPoints
-      let cities = this.getCities(citiesCount, hasLevels)
+      console.log('constructtor')
+      let cities = this.getCities(citiesCount)
       this.cities = cities
-      let skylines = this.getSkyline(size * 0.4, hasLevels)
+      let skylines = this.getSkyline(size * 0.4)
       this.skylines = skylines
       this.currentCount = 0
       this.questions = this.questions(citiesCount, cities, skylines)
@@ -43,6 +44,7 @@ class QuizGame {
   }
   
   questions (size, cities, skylines) {
+    console.log(cities)
     let arr = []
     for (let i = 0; i < size; i++) {
       arr.push(new MultiPic(cities[i]))
@@ -51,13 +53,11 @@ class QuizGame {
       arr.push(new Skyline(skylines[i]))
     }
     this.shuffleCities(arr)
+    console.log(arr)
     return arr
   }
   
-  getCities (nr, hasLevels) {
-    if (hasLevels) {
-      return this.shuffleCities(levels.levels["2"].getMultipic())
-    }
+  getCities (nr) {
     let arr
     let europe = Object.keys(cities.europe)
     let northAmerica = Object.keys(cities.north_america)
@@ -68,10 +68,7 @@ class QuizGame {
     return arr.slice(0, nr)
   }
   
-  getSkyline (nr, hasLevels) {
-    if (hasLevels) {
-      return this.shuffleCities(levels.levels["2"].getSkyline())
-    }
+  getSkyline (nr) {
     let skylines = Object.keys(skylineLib.skylineLib)
     this.shuffleCities(skylines)
     return skylines.slice(0, nr)
