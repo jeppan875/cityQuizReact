@@ -73,7 +73,7 @@ progress {width: 100%;display: block;}
 .font-size-16 {font-size: 16px;}
 #gameid {width: 100%;}
 #scoreBoard {font-size: 16px;}
-main {font-family: 'Pacifico', cursive; margin-left: 20%; margin-right: 20%;}
+main {margin-left: 20%; margin-right: 20%;}
 #timer, #spScore {margin: 0;padding: 0; }
 .no-margin {margin: 0;padding: 0; }
 #quiz {display: inline-block; }
