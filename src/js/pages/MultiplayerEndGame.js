@@ -5,9 +5,13 @@ import ScoreBoard from '../components/multiplayerEndGame/Scoreboard'
 export default class MultiplayerEndGame extends React.Component {
   render () {
     return (
-      <div>
-        <PlayAgain />
-        <ScoreBoard />
+      <div className='card card-position transparent borders slideInFromTop'>
+        <div className='card-body'>
+          <div>
+            <PlayAgain />
+            <ScoreBoard />
+          </div>
+        </div>
       </div>
     )
   }

@@ -32,6 +32,8 @@ export default class StartMenu extends React.Component {
         document.querySelector('#loginBtn').style.display = 'none'
         document.querySelector('#signoutBtn').style.display = 'inline-block'
       } else {
+        document.querySelector('#loginBtn').style.display = 'inline-block'
+        document.querySelector('#signoutBtn').style.display = 'none'
       }
     })
   }

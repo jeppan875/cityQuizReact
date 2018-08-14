@@ -30,9 +30,9 @@ const uiConfig = {
   signInSuccessUrl: '/',
   // We will display Google and Facebook as auth providers.
   signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    // firebase.auth.EmailAuthProvider.PROVIDER_ID
   ]
 }
 export default class Login extends React.Component {
@@ -42,8 +42,12 @@ export default class Login extends React.Component {
   }
   render () {
     return (
-      <div>
-        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      <div className='card transparent card-position borders slideInFromTop'>
+        <div className='card-body'>
+          <div>
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+          </div>
+        </div>
       </div>
     )
   }

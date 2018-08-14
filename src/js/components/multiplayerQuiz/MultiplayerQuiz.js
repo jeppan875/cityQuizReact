@@ -12,7 +12,7 @@ export default class MultiplayerQuiz extends React.Component {
     this.user = firebase.auth().currentUser
     this.playerCount = 0
     this.state = {
-      classNames: 'StandardButton',
+      classNames: 'StandardButton btn-block',
       disabled: false,
       startTime: null,
       timeLeft: null,
@@ -168,7 +168,7 @@ export default class MultiplayerQuiz extends React.Component {
   answerSent () {
     if (this.gameEnded === true) return
     this.setState({
-      classNames: 'StandardButton pressedButton',
+      classNames: 'StandardButton pressedButton btn-block',
       disabled: true
     })
     let answer = document.querySelector('input[name="answer"]:checked')
@@ -197,7 +197,7 @@ export default class MultiplayerQuiz extends React.Component {
   }
   setNextQuestion () {
     this.setState({
-      classNames: 'StandardButton',
+      classNames: 'StandardButton btn-block',
       disabled: false
     })
     let input = document.querySelectorAll('input')

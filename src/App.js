@@ -65,11 +65,11 @@ class App extends Component {
       <div id='wrapper' className='main-background'>
         <main>
           <Switch>
-            <PrivateRoute authenticated={this.state.authenticated} path='/' exact component={StartMenu} />
-            <PrivateRoute authenticated={this.state.authenticated} path='/quiz' component={Quiz} />
-            <PrivateRoute authenticated={this.state.authenticated} path='/load-quiz' component={LoadQuiz} />
-            <PrivateRoute authenticated={this.state.authenticated} path='/end-game' component={EndGame} />
-            <PrivateRoute authenticated={this.state.authenticated} path='/login' component={Login} />
+            <Route authenticated={this.state.authenticated} path='/' exact component={StartMenu} />
+            <Route authenticated={this.state.authenticated} path='/quiz' component={Quiz} />
+            <Route authenticated={this.state.authenticated} path='/load-quiz' component={LoadQuiz} />
+            <Route authenticated={this.state.authenticated} path='/end-game' component={EndGame} />
+            <Route authenticated={this.state.authenticated} path='/login' component={Login} />
             <PrivateRoute authenticated={this.state.authenticated} path='/multiplayer-main' component={MultiplayerMain} />
             <PrivateRoute authenticated={this.state.authenticated} path='/create-multiplayer-game' component={MultiplayerCreateGame} />
             <PrivateRoute authenticated={this.state.authenticated} path='/loading-multiplayer-game' component={LoadingMultiplayerGame} />
